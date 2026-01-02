@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
@@ -23,15 +24,21 @@ export default function Home() {
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]} 
           className="w-screen relative overflow-visible">
-          <CarouselContent>
-            <CarouselItem className="h-60 lg:h-100 w-full">
-              <img id="banner_1" src="https://placehold.co/600x400?text=Banner 1" alt="Sample 1" className="w-full h-full object-cover" />
+          <CarouselContent className="gap-0">
+            <CarouselItem className="h-60 lg:h-100 w-full p-0 m-0">
+              <a href="/products/sample-1">
+                <img id="banner_1" src="https://placehold.co/600x400?text=Banner 1" alt="Sample 1" className="w-full h-full object-cover" />
+              </a>
             </CarouselItem>
-            <CarouselItem className="h-60 lg:h-100 w-full">
-              <img id="banner_2" src="https://placehold.co/600x400?text=Banner 2" alt="Sample 2" className="w-full h-full object-cover" />
+            <CarouselItem className="h-60 lg:h-100 w-full p-0 m-0">
+              <a href="/products/sample-2">
+                <img id="banner_2" src="https://placehold.co/600x400?text=Banner 2" alt="Sample 2" className="w-full h-full object-cover" />
+              </a>
             </CarouselItem>
-            <CarouselItem className="h-60 lg:h-100 w-full">
-              <img id="banner_3" src="https://placehold.co/600x400?text=Banner 3" alt="Sample 3" className="w-full h-full object-cover" />
+            <CarouselItem className="h-60 lg:h-100 w-full p-0 m-0">
+              <a href="/products/sample-3">
+                <img id="banner_3" src="https://placehold.co/600x400?text=Banner 3" alt="Sample 3" className="w-full h-full object-cover" />
+              </a>
             </CarouselItem>
           </CarouselContent>
           {/* <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2" />
@@ -56,6 +63,7 @@ export default function Home() {
       </div>
 
       <div id="section-footer">
+        <Footer />
 
       </div>
       
