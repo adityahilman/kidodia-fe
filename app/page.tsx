@@ -41,8 +41,8 @@ export default function Home() {
               </a>
             </CarouselItem>
           </CarouselContent>
-          {/* <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2" />
-          <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2" /> */}
+          <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
+          <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
         </Carousel>
       </div>
 
@@ -51,7 +51,7 @@ export default function Home() {
           <h2 className="text-lg text-center font-semibold tracking-wider mb-4">Daftar Produk</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div key={item} className="border p-4">
+              <div key={item} className="p-4">
                 <img src={`https://placehold.co/200x200?text=Product+${item}`} alt={`Product ${item}`} className="w-full h-auto mb-2" />
                 <h3 className="font-semibold">Produk {item}</h3>
                 <p className="text-gray-600 text-xs mb-4">Deskripsi singkat produk {item}.</p>
