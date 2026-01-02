@@ -11,12 +11,10 @@ import {
 } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
-import Header from "@/components/header";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
-      {/* <Header /> */}
 
       {/* <div id="section-top-promo" className="flex justify-center items-center w-screen bg-[#3F9AAE]">
         <p className="text-white p-2 text-xs lg:text-base tracking-wider" id="top-promo-link">Klik Disini untuk Lihat Promo!</p>
