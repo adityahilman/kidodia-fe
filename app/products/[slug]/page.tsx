@@ -1,6 +1,7 @@
 'use client'
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { Button } from "@/components/ui/button";
 import { useParams } from "next/navigation";
 
 export default function ProductDetailPage() {
@@ -11,7 +12,7 @@ export default function ProductDetailPage() {
       <Header />
       <div id="section-product-detail" className="w-full max-w-4xl mx-auto mt-16 px-4">
         <div className="flex flex-col lg:flex-row gap-8">
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <img
               src={`https://placehold.co/600x400?text=${slug}`}
               alt="Product Detail Banner"
@@ -33,9 +34,10 @@ export default function ProductDetailPage() {
               <li>Desain layout simpel dan elegan</li>
               <li>Bisa upload foto langsung dari HP</li>
             </ul>
-            <button className="bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition">
+           
+            <Button className="mt-4 rounded-none py-6">
               Pesan Sekarang
-            </button>
+            </Button>
           </div>
         </div>
       </div>

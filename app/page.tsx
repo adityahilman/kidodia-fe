@@ -18,10 +18,6 @@ export default function Home() {
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       <Header />
 
-      {/* <div id="section-top-promo" className="flex justify-center items-center w-screen bg-[#3F9AAE]">
-        <p className="text-white p-2 text-xs lg:text-base tracking-wider" id="top-promo-link">Klik Disini untuk Lihat Promo!</p>
-      </div> */}
-
       <div className="flex mt-12" id="carousel-banner">
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]} 
