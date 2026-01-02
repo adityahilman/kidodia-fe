@@ -86,25 +86,25 @@ export default function Home() {
               <CarouselItem className="h-full w-full p-0 m-0 ">
                 <img src="https://placehold.co/200x400?text=Review+1+200x400" alt="Review 1" className="mx-auto shadow-md" />
                 <p className="text-gray-600 text-sm mt-2">
-                  Review Pelanggan 1
+                  Customer Review 1
                 </p>
               </CarouselItem>
               <CarouselItem className="h-full w-full p-0 m-0">
                 <img src="https://placehold.co/200x400?text=Review+2+200x400" alt="Review 2" className="mx-auto shadow-md" />
                 <p className="text-gray-600 text-sm mt-2">
-                  Review Pelanggan 2
+                  Customer Review 2
                 </p>
               </CarouselItem>
               <CarouselItem className="h-full w-full p-0 m-0">
                 <img src="https://placehold.co/200x400?text=Review+3+200x400" alt="Review 3" className="mx-auto shadow-md" />
                 <p className="text-gray-600 text-sm mt-2">
-                  Review Pelanggan 3
+                  Customer Review 3
                 </p>
               </CarouselItem>
               <CarouselItem className="h-full w-full p-0 m-0">
                 <img src="https://placehold.co/200x400?text=Review+4+200x400" alt="Review 4" className="mx-auto shadow-md" />
                 <p className="text-gray-600 text-sm mt-2">
-                  Review Pelanggan 4
+                  Customer Review 4
                 </p>
               </CarouselItem>
             </CarouselContent>
