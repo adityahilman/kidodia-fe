@@ -15,7 +15,7 @@ import Header from "@/components/header";
 
 export default function Home() {
   return (
-    <div className="flex w-screen flex-col">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* <Header /> */}
 
       {/* <div id="section-top-promo" className="flex justify-center items-center w-screen bg-[#3F9AAE]">
@@ -25,7 +25,7 @@ export default function Home() {
       <div className="flex" id="carousel-banner">
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]} 
-          className="w-screen relative overflow-visible">
+          className="w-screen relative">
           <CarouselContent className="gap-0">
             <CarouselItem className="h-full w-full p-0 m-0">
               <a href="/products/sample-1" id="banner_1">
@@ -43,8 +43,8 @@ export default function Home() {
               </a>
             </CarouselItem>
           </CarouselContent>
-          <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
-          <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
+          {/* <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
+          <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" /> */}
         </Carousel>
       </div>
 
