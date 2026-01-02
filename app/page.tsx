@@ -249,7 +249,7 @@ export default function Home() {
                 <img src={`https://placehold.co/200x200?text=Product+${item}`} alt={`Product ${item}`} className="w-full h-auto mb-2" />
                 <h3 className="font-semibold">Produk {item}</h3>
                 <p className="text-gray-600 text-xs mb-4">Deskripsi singkat produk {item}.</p>
-                <Button id={`btn-product-${item}`} className="mt-2 w-full bg-[#3F9AAE] rounded-xs">Lihat Detail</Button>
+                <Button id={`btn-product-${item}`} className="mt-2 w-full rounded-xs">Lihat Detail</Button>
               </div>
             ))}
           </div>
