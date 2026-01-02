@@ -13,21 +13,21 @@ import {
 export default function Home() {
   return (
     <div className="flex w-screen flex-col">
-      <div className="flex justify-center items-center w-screen bg-blue-400">
-        <h1 className="text-white">Welcome to Kidodia</h1>
+      <div className="flex justify-center items-center w-screen bg-[#3F9AAE]">
+        <p className="text-white p-2 font-semibold text-xs">Klik Disini untuk Lihat Promo!</p>
       </div>
       <div className="flex">
         <Carousel
           plugins={[Autoplay({ delay: 2000 })]} 
           className="w-screen relative overflow-visible">
           <CarouselContent>
-            <CarouselItem className="h-60 w-full">
+            <CarouselItem className="h-60 lg:h-100 w-full">
               <img src="https://placehold.co/600x400?text=Image1" alt="Sample 1" className="w-full h-full object-cover" />
             </CarouselItem>
-            <CarouselItem className="h-60 w-full">
+            <CarouselItem className="h-60 lg:h-100 w-full">
               <img src="https://placehold.co/600x400?text=Image2" alt="Sample 2" className="w-full h-full object-cover" />
             </CarouselItem>
-            <CarouselItem className="h-60 w-full">
+            <CarouselItem className="h-60 lg:h-100 w-full">
               <img src="https://placehold.co/600x400?text=Image3" alt="Sample 3" className="w-full h-full object-cover" />
             </CarouselItem>
           </CarouselContent>
