@@ -1,4 +1,5 @@
 'use client'
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useParams } from "next/navigation";
 
@@ -8,19 +9,37 @@ export default function ProductDetailPage() {
   return (
     <div>
       <Header />
-      <div id="section-product-detail" className="w-screen p-4">
-        <div className="flex md:flex-col lg:flex-row flex-col gap-4 ">
-          <img src={`https://placehold.co/600x400?text=${slug}`} alt="Product Detail Banner" className="w-200 h-auto mb-4" />
-          <h1 className="tracking-wider">Product Title</h1>
-          <div className="flex flex-col text-sm">
-            <p className="line-through text-gray-400">Rp 159.000</p>
-            <p>Rp 99.000</p>
+      <div id="section-product-detail" className="w-full max-w-4xl mx-auto mt-16 px-4">
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-shrink-0">
+            <img
+              src={`https://placehold.co/600x400?text=${slug}`}
+              alt="Product Detail Banner"
+              className="w-full max-w-md rounded shadow"
+            />
+          </div>
+          <div className="flex flex-col justify-center">
+            <h1 className="text-2xl font-bold mb-2 tracking-wider">Product Title</h1>
+            <div className="flex flex-col text-lg mb-4">
+              <span className="line-through text-gray-400">Rp 159.000</span>
+              <span className="text-2xl text-primary font-semibold">Rp 99.000</span>
+            </div>
+            <p className="mb-4 text-gray-700">
+              Photobook premium dengan kualitas cetak terbaik. Cocok untuk mengabadikan momen spesial seperti liburan, pernikahan, ulang tahun, dan keluarga.
+            </p>
+            <ul className="mb-4 list-disc list-inside text-gray-600">
+              <li>Kertas tebal dan tahan lama</li>
+              <li>Warna tajam dan detail</li>
+              <li>Desain layout simpel dan elegan</li>
+              <li>Bisa upload foto langsung dari HP</li>
+            </ul>
+            <button className="bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-primary-dark transition">
+              Pesan Sekarang
+            </button>
           </div>
         </div>
-        
-
       </div>
-     
+      <Footer />
     </div>
   );
 }
