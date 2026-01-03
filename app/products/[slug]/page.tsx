@@ -2,11 +2,18 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { v6} from 'uuid';
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params.slug;
+
+  const btnOrder = () => {
+    const orderId = v6()
+    router.push(`/checkout/create?orderId=${orderId}&product=${slug}`);
+  }
   return (
     <div>
       <Header />
@@ -35,7 +42,7 @@ export default function ProductDetailPage() {
               <li>Bisa upload foto langsung dari HP</li>
             </ul>
            
-            <Button className="mt-4 rounded-none py-6">
+            <Button className="mt-4 rounded-none py-6 cursor-pointer hover:bg-blue-500" onClick={btnOrder}>
               Pesan Sekarang
             </Button>
           </div>
