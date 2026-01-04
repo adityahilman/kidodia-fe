@@ -8,6 +8,7 @@ export default function VerifyOtpPage() {
 
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
+    const [showMessageResend, setShowMessageResend] = useState(false);
 
     const btnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,6 +21,10 @@ export default function VerifyOtpPage() {
     const btnResend = () => {
         console.log("Resend OTP");
         // Handle resend OTP logic here
+        setShowMessageResend(true);
+        setTimeout(() => {
+            setShowMessageResend(false);
+        }, 3000);
     }
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
@@ -66,7 +71,7 @@ export default function VerifyOtpPage() {
             </main>
 
             {showMessage && otpIsValid && (
-                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center p-10 rounded-md">
+                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center rounded-md">
                     <div className="border p-10 rounded-lg bg-blue-400 text-white text-center">
                         <p className="mt-2">
                             Your OTP has been successfully verified.
@@ -75,6 +80,15 @@ export default function VerifyOtpPage() {
                             Please wait, we will redirect you to the next step.
                         </p>
                     
+                    </div>
+                </div>
+            )}
+            {showMessageResend && (
+                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center rounded-md">
+                    <div className="p-4 rounded-lg bg-emerald-500 text-white text-center">
+                        <p className="mt-2">
+                            A new OTP has been sent to your email.
+                        </p>
                     </div>
                 </div>
             )}
