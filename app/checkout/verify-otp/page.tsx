@@ -22,10 +22,10 @@ export default function VerifyOtpPage() {
                     
                     <div className="mb-6 text-center">
                         <h2 className="text-xl font-semibold text-gray-900">
-                            Verify OTP
+                            Confirm Verification Code
                         </h2>
                         <p className="mt-2 text-sm text-gray-500">
-                            Check your email for the OTP code to continue your order.
+                            Please check your email for the code to continue your order.
                         </p>
                     </div>
 
