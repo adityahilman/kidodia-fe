@@ -2,12 +2,19 @@
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { useState } from "react";
 
 export default function VerifyOtpPage() {
+
+    const [otpIsValid, setOtpIsValid] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
 
     const btnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Handle OTP verification logic here
+        console.log("OTP Verified");
+        setOtpIsValid(true);
+        setShowMessage(true);
     }   
 
     const btnResend = () => {
@@ -34,6 +41,9 @@ export default function VerifyOtpPage() {
                             <input
                                 type="text"
                                 placeholder="Enter OTP"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                maxLength={6}
                                 className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
                             />
 
@@ -54,6 +64,21 @@ export default function VerifyOtpPage() {
                    
                 </div>
             </main>
+
+            {showMessage && otpIsValid && (
+                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center p-10 rounded-md">
+                    <div className="border p-10 rounded-lg bg-blue-400 text-white text-center">
+                        <p className="mt-2">
+                            Your OTP has been successfully verified.
+                        </p>
+                        <p className="mt-4 animate-pulse">
+                            Please wait, we will redirect you to the next step.
+                        </p>
+                    
+                    </div>
+                </div>
+            )}
+
             <Footer />
         </div>
     );
