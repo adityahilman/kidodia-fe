@@ -3,12 +3,14 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 export default function VerifyOtpPage() {
-
+    const router = useRouter();
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageResend, setShowMessageResend] = useState(false);
+    const { orderId } = useParams<{ orderId: string }>();
 
     const btnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,6 +18,10 @@ export default function VerifyOtpPage() {
         console.log("OTP Verified");
         setOtpIsValid(true);
         setShowMessage(true);
+        setTimeout(() => {
+            setShowMessage(false);
+            router.push(`/checkout/${orderId}/payment`);
+        }, 3000);
     }   
 
     const btnResend = () => {
@@ -50,6 +56,7 @@ export default function VerifyOtpPage() {
                                 pattern="[0-9]*"
                                 maxLength={6}
                                 className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
+                                required
                             />
 
                             <button className="w-full rounded-lg bg-black py-3 text-sm font-medium text-white hover:bg-gray-800">

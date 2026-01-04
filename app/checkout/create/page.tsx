@@ -14,7 +14,7 @@ export default function CreateCheckoutPage() {
     const btnSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Handle form submission logic here
-        router.push('/checkout/verify-otp');
+        router.push(`/checkout/${orderId}/verify-otp`);
     }
 
     return (
