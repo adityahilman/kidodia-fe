@@ -11,6 +11,12 @@ export default function CreateCheckoutPage() {
     const orderId = searchParams.get('orderId');
     const productSlug = searchParams.get('product');
 
+    const btnSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        router.push('/checkout/verify-otp');
+    }
+
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
             <Header />
@@ -18,7 +24,6 @@ export default function CreateCheckoutPage() {
             <main className="flex flex-1 items-center justify-center px-4">
                 <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-sm border">
                     
-                    {/* Title */}
                     <div className="mb-6 text-center">
                         <h2 className="text-xl font-semibold text-gray-900">
                             Continue Your Order
@@ -28,7 +33,6 @@ export default function CreateCheckoutPage() {
                         </p>
                     </div>
 
-                    {/* Order Info */}
                     <div className="mb-6 rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
                         <div className="flex justify-between">
                             <span className="font-medium">Order ID</span>
@@ -40,20 +44,21 @@ export default function CreateCheckoutPage() {
                         </div>
                     </div>
 
-                    {/* Form */}
-                    <div className="space-y-4">
-                        <input
-                            type="email"
-                            placeholder="you@example.com"
-                            className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
-                        />
+                    <form id="form-input-email" onSubmit={btnSubmit}>
+                        <div className="space-y-4">
+                            <input
+                                type="email"
+                                placeholder="you@example.com"
+                                className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
+                            />
 
-                        <Button className="w-full rounded-lg py-3 text-sm font-medium">
-                            Continue
-                        </Button>
-                    </div>
+                            <Button className="w-full rounded-lg py-3 text-sm font-medium">
+                                Continue
+                            </Button>
+                        </div>
 
-                    {/* Login link */}
+                    </form>
+                    
                     <div className="mt-6 text-center">
                         <Button
                             variant="link"

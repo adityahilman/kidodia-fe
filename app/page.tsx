@@ -64,7 +64,7 @@ export default function Home() {
 
           <Carousel plugins={[Autoplay({ delay: 2500 })]} className="mt-12">
             <CarouselContent className="gap-6">
-              {[1, 2, 3, 4].map((item) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                 <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
                   <img
                     src={`https://placehold.co/220x360?text=Review+${item}`}
