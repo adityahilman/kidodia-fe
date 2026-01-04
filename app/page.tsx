@@ -1,7 +1,6 @@
 'use client'
+
 import Autoplay from "embla-carousel-autoplay"
-
-
 import {
   Carousel,
   CarouselContent,
@@ -9,252 +8,187 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
-import Header from "@/components/header";
+import { Button } from "@/components/ui/button"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden">
       <Header />
 
-      <div className="flex mt-12" id="carousel-banner">
-        <Carousel
-          plugins={[Autoplay({ delay: 2000 })]} 
-          className="w-screen relative">
-          <CarouselContent className="gap-0">
-            <CarouselItem className="h-full w-full p-0 m-0">
-              <a href="/products/sample-1" id="banner_1">
-                <img id="image_banner_1" src="https://placehold.co/1024x240?text=Banner-1+1024x240" alt="Sample 1" className="w-full object-cover" />
-              </a>
-            </CarouselItem>
-            <CarouselItem className="h-full w-full p-0 m-0">
-              <a href="/products/sample-2" id="banner_2">
-                <img id="image_banner_2" src="https://placehold.co/1024x240?text=Banner-2+1024x240" alt="Sample 2" className="w-full object-cover" />
-              </a>
-            </CarouselItem>
-            <CarouselItem className="h-full w-full p-0 m-0">
-              <a href="/products/sample-3" id="banner_3">
-                <img id="image_banner_3" src="https://placehold.co/1024x240?text=Banner-3+1024x240" alt="Sample 3" className="w-full object-cover" />
-              </a>
-            </CarouselItem>
+      {/* ================= HERO / BANNER ================= */}
+      <section className="mt-16">
+        <Carousel plugins={[Autoplay({ delay: 3000 })]}>
+          <CarouselContent>
+            {[1, 2, 3].map((item) => (
+              <CarouselItem key={item} className="p-0">
+                <a href={`/products/sample-${item}`}>
+                  <img
+                    src={`https://placehold.co/1440x420?text=Banner+${item}`}
+                    alt={`Banner ${item}`}
+                    className="h-[240px] md:h-[380px] w-full object-cover"
+                  />
+                </a>
+              </CarouselItem>
+            ))}
           </CarouselContent>
-          {/* <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
-          <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" /> */}
         </Carousel>
-      </div>
+      </section>
 
-      <div id="section-title" className="w-screen text-center py-10 px-5 bg-gray-100 ">
-        <div>
-          <h1 className="text-4xl font-bold">
+      {/* ================= TITLE & CTA ================= */}
+      <section className="bg-gray-100 py-20 text-center">
+        <div className="container mx-auto max-w-3xl px-4">
+          <h1 className="text-4xl font-bold tracking-tight">
             Cetak Photobook untuk Semua Momen Bahagia
           </h1>
-        </div>
-        <div className="mt-4 max-w-2xl mx-auto">
-          <p className="text-gray-800">
-            Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi. Cocok untuk liburan, pernikahan, ulang tahun, keluarga, dan momen spesial lainnya.
+          <p className="mt-4 text-gray-700">
+            Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi
+            untuk liburan, pernikahan, ulang tahun, dan keluarga.
           </p>
-        </div>
-        <div>
-          <Button className="px-14 py-7 mt-5 rounded-sm text-lg">
+          <Button className="mt-8 px-14 py-6 text-lg rounded-xl">
             Buat Photobook Sekarang
           </Button>
-
         </div>
-      </div>
+      </section>
 
-      <div id="section-social-proof" className="w-screen text-center px-20 bg-white py-10">
-        <div>
+      {/* ================= SOCIAL PROOF ================= */}
+      <section className="py-20 bg-white text-center">
+        <div className="container mx-auto max-w-4xl px-4">
           <h2 className="text-2xl font-semibold">
             Dipercaya untuk Mengabadikan Banyak Momen Berharga
           </h2>
-        </div>
-        <div className="mt-4 max-w-2xl mx-auto">
-          <p className="text-gray-600">
-            Kidodia dipercaya oleh pelanggan di Indonesia untuk mencetak photobook dengan proses mudah dan hasil cetak berkualitas.
+          <p className="mt-3 text-gray-600">
+            Ribuan pelanggan di Indonesia mempercayakan kenangan mereka ke Kidodia.
           </p>
-        </div>
-        <div>
-          <Carousel
-            plugins={[Autoplay({ delay: 3000 })]} 
-            className="w-full relative overflow-visible mt-10">
+
+          <Carousel plugins={[Autoplay({ delay: 2500 })]} className="mt-12">
             <CarouselContent className="gap-6">
-              <CarouselItem className="h-full w-full p-0 m-0 ">
-                <img src="https://placehold.co/200x400?text=Review+1+200x400" alt="Review 1" className="mx-auto shadow-md" />
-                <p className="text-gray-600 text-sm mt-2">
-                  Customer Review 1
-                </p>
-              </CarouselItem>
-              <CarouselItem className="h-full w-full p-0 m-0">
-                <img src="https://placehold.co/200x400?text=Review+2+200x400" alt="Review 2" className="mx-auto shadow-md" />
-                <p className="text-gray-600 text-sm mt-2">
-                  Customer Review 2
-                </p>
-              </CarouselItem>
-              <CarouselItem className="h-full w-full p-0 m-0">
-                <img src="https://placehold.co/200x400?text=Review+3+200x400" alt="Review 3" className="mx-auto shadow-md" />
-                <p className="text-gray-600 text-sm mt-2">
-                  Customer Review 3
-                </p>
-              </CarouselItem>
-              <CarouselItem className="h-full w-full p-0 m-0">
-                <img src="https://placehold.co/200x400?text=Review+4+200x400" alt="Review 4" className="mx-auto shadow-md" />
-                <p className="text-gray-600 text-sm mt-2">
-                  Customer Review 4
-                </p>
-              </CarouselItem>
+              {[1, 2, 3, 4].map((item) => (
+                <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
+                  <img
+                    src={`https://placehold.co/220x360?text=Review+${item}`}
+                    className="mx-auto rounded-lg shadow-md"
+                  />
+                  <p className="mt-2 text-sm text-gray-500">
+                    Customer Review
+                  </p>
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselNext className="z-20 bg-white absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
-            <CarouselPrevious className="z-20 bg-white absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 opacity-50" />
+            <CarouselNext />
+            <CarouselPrevious />
           </Carousel>
         </div>
-      </div>
+      </section>
 
-      <div id="section-why-kidodia" className="w-screen text-center px-20 bg-gray-100 py-10">
-        <div>
+      {/* ================= WHY KIDODIA ================= */}
+      <section className="bg-gray-100 py-20">
+        <div className="container mx-auto max-w-6xl px-4 text-center">
           <h2 className="text-2xl font-semibold">
             Kenanganmu Layak Dicetak dengan Baik
           </h2>
           <p className="mt-2 text-gray-600">
-            Kidodia membantu mengubah foto-foto terbaikmu menjadi photobook berkualitas, tanpa ribet.
+            Semua proses dibuat simpel, cepat, dan berkualitas.
           </p>
-        </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mt-10">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              {
-                title: "Upload dari HP",
-                desc: "Upload foto langsung dari handphone tanpa ribet.",
-              },
-              {
-                title: "Desain Rapi",
-                desc: "Layout simpel dan nyaman untuk berbagai momen.",
-              },
-              {
-                title: "Kualitas Premium",
-                desc: "Warna tajam, kertas tebal, dan tahan lama.",
-              },
-              {
-                title: "Kirim ke Rumah",
-                desc: "Dicetak dan dikirim ke seluruh Indonesia.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="rounded-lg bg-white p-6 text-center shadow-sm"
-              >
-                <h3 className="mb-2 font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
+              ["Upload dari HP", "Tanpa ribet, langsung dari handphone"],
+              ["Desain Rapi", "Layout elegan untuk semua momen"],
+              ["Kualitas Premium", "Warna tajam & kertas tebal"],
+              ["Kirim ke Rumah", "Pengiriman ke seluruh Indonesia"],
+            ].map(([title, desc]) => (
+              <div key={title} className="rounded-xl bg-white p-6 shadow-sm">
+                <h3 className="font-semibold">{title}</h3>
+                <p className="mt-2 text-sm text-gray-600">{desc}</p>
               </div>
             ))}
           </div>
-       
-
-      </div>
-
-      <div id="section-order-flow" className="w-screen text-center px-10 py-10">
-        <div>
-          <h2 className="text-xl font-semibold">Abadikan Momen Kamu Dengan Mudah!</h2>
         </div>
-        <div className="mt-5 grid grid-cols-1 lg:grid-cols-4 md:grid-cols-1 gap-10">
-          <div id="section-order-step-1">
-            <div>
-              <img src="https://placehold.co/200x200?text=200x200" alt="Step 1" className="mx-auto" />
-            </div>
-            <div>
-              <h3 className="font-semibold mt-2">Pilih Produk</h3>
-              <p className="text-xs text-gray-600 mt-1">Pilih produk favoritmu dari katalog kami yang beragam.</p>
-            </div>
-          </div>
+      </section>
 
-          <div id="section-order-step-2">
-            <div>
-              <img src="https://placehold.co/200x200?text=200x200" alt="Step 2" className="mx-auto" />
-            </div>
-            <div>
-              <h3 className="font-semibold mt-2">Checkout</h3>
-              <p className="text-xs text-gray-600 mt-1">Lakukan pembayaran dan konfirmasi pesananmu dengan mudah.</p>
-            </div>
-          </div>
+      {/* ================= ORDER FLOW ================= */}
+      <section className="py-20 text-center">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h2 className="text-2xl font-semibold">
+            Abadikan Momen Kamu dengan Mudah
+          </h2>
 
-          <div id="section-order-step-3">
-            <div>
-              <img src="https://placehold.co/200x200?text=200x200" alt="Step 3" className="mx-auto" />
-            </div>
-            <div>
-              <h3 className="font-semibold mt-2">Upload Foto</h3>
-              <p className="text-xs text-gray-600 mt-1">Upload foto favoritmu.</p>
-            </div>
+          <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Pilih Produk", "Tentukan photobook favoritmu"],
+              ["Checkout", "Bayar & konfirmasi pesanan"],
+              ["Upload Foto", "Upload foto terbaikmu"],
+              ["Produksi & Kirim", "Dicetak & dikirim ke rumah"],
+            ].map(([title, desc], i) => (
+              <div key={i}>
+                <img src="https://placehold.co/180x180" className="mx-auto" />
+                <h3 className="mt-4 font-semibold">{title}</h3>
+                <p className="mt-1 text-sm text-gray-600">{desc}</p>
+              </div>
+            ))}
           </div>
-
-          <div id="section-order-step-4">
-            <div>
-              <img src="https://placehold.co/200x200?text=200x200" alt="Step 4" className="mx-auto" />
-            </div>
-            <div>
-              <h3 className="font-semibold mt-2">Proses Produksi</h3>
-              <p className="text-xs text-gray-600 mt-1">Kamu tinggal menunggu produk jadi dan dikirim ke alamatmu. Proses pembuatannya membutuhkan waktu 7-14 hari kerja ya.</p>
-            </div>
-          </div>
-
         </div>
+      </section>
 
-      </div>
-
-      <div id="section-product-knowledge" className="mt-10 max-w-screen mx-auto">
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-1 lg:grid-cols-2 p-2">
-          <div className="flex justify-end">
-            <img src="https://placehold.co/600x400?text=600x400" alt="Product Knowledge Banner" className="object-cover" />
-          </div>
-          <div className="max-w-md  flex flex-col justify-center">
+      {/* ================= PRODUCT KNOWLEDGE ================= */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto max-w-6xl px-4 space-y-16">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <img src="https://placehold.co/600x400" className="rounded-xl" />
             <div>
-              <h2>Bahan Premium dan Tahan Lama</h2>
-            </div>
-            <div className="mt-2">
-              <p className="text-sm text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos voluptate magni consectetur itaque animi fugit officiis cum ad, quia excepturi eum ex dolore. Est aliquid blanditiis provident aliquam, veritatis saepe?
+              <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
+              <p className="mt-3 text-gray-600">
+                Menggunakan bahan berkualitas tinggi agar kenanganmu awet
+                dan tampil maksimal.
               </p>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2 p-2 mt-10">
-          <div className="max-w-md flex flex-col justify-center ">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <h2>Cover</h2>
-            </div>
-            <div className="mt-2">
-              <p className=" text-gray-600 items-end">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos voluptate magni consectetur itaque animi fugit officiis cum ad, quia excepturi eum ex dolore. Est aliquid blanditiis provident aliquam, veritatis saepe?
+              <h2 className="text-xl font-semibold">Cover Elegan</h2>
+              <p className="mt-3 text-gray-600">
+                Desain cover modern yang cocok untuk semua momen.
               </p>
             </div>
-          </div>
-          <div className="flex justify-start border">
-            <img src="https://placehold.co/600x400?text=600x400" alt="Product Knowledge Banner" className="object-cover" />
+            <img src="https://placehold.co/600x400" className="rounded-xl" />
           </div>
         </div>
+      </section>
 
-      </div>
+      {/* ================= PRODUCT LIST ================= */}
+      <section className="py-20">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h2 className="mb-10 text-center text-2xl font-semibold">
+            Daftar Produk
+          </h2>
 
-      <div id="section-products" className="w-screen p-10">
-        <div className="">
-          <h2 className="text-lg text-center font-semibold tracking-wider mb-4">Daftar Produk</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div key={item} className="p-4">
-                <img src={`https://placehold.co/200x200?text=Product+${item}`} alt={`Product ${item}`} className="w-full h-auto mb-2" />
+              <div key={item} className="rounded-xl border p-4">
+                <img
+                  src={`https://placehold.co/300x300?text=Product+${item}`}
+                  className="mb-3 rounded-lg"
+                />
                 <h3 className="font-semibold">Produk {item}</h3>
-                <p className="text-gray-600 text-xs mb-4">Deskripsi singkat produk {item}.</p>
-                <Button id={`btn-product-${item}`} className="mt-2 w-full rounded-xs">Lihat Detail</Button>
+                <p className="text-xs text-gray-600 mb-3">
+                  Deskripsi singkat produk
+                </p>
+                <Button className="w-full rounded-lg">
+                  Lihat Detail
+                </Button>
               </div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <div id="section-faq" className="w-screen bg-gray-100">
-        <div className="mx-auto max-w-4xl px-6 py-20">
-          <h2 className="mb-8 text-center text-2xl font-semibold">
+      {/* ================= FAQ ================= */}
+      <section className="bg-gray-100 py-20">
+        <div className="mx-auto max-w-4xl px-4">
+          <h2 className="mb-10 text-center text-2xl font-semibold">
             Pertanyaan Seputar Photobook
           </h2>
 
@@ -262,21 +196,18 @@ export default function Home() {
             {[
               {
                 q: "Photobook cocok untuk momen apa saja?",
-                a: "Cocok untuk semua momen bahagia seperti liburan, pernikahan, dan acara spesial.",
+                a: "Cocok untuk semua momen bahagia seperti liburan, pernikahan, dan keluarga.",
               },
               {
                 q: "Bisa order dari HP?",
-                a: "Bisa. Semua proses bisa dilakukan langsung dari handphone.",
+                a: "Bisa, semua proses bisa dilakukan langsung dari handphone.",
               },
               {
                 q: "Berapa lama proses cetak?",
-                a: "Rata-rata 7-14 hari kerja.",
+                a: "Rata-rata 7–14 hari kerja.",
               },
             ].map((item) => (
-              <details
-                key={item.q}
-                className="rounded-xl bg-white p-4 shadow-sm"
-              >
+              <details key={item.q} className="rounded-xl bg-white p-4 shadow-sm">
                 <summary className="cursor-pointer font-medium">
                   {item.q}
                 </summary>
@@ -285,14 +216,9 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </div>
-      
+      </section>
 
-      <div id="section-footer">
-        <Footer />
-
-      </div>
-      
+      <Footer />
     </div>
-  );
+  )
 }
