@@ -46,7 +46,7 @@ export default function PaymentPage() {
                             Order ID: {orderId}
                         </p>
                     </div>
-                    <Button onClick={payNow}>Pay Now</Button>
+                    <Button onClick={payNow} className="w-full">Pay Now</Button>
                 </div>
             </main>
 
