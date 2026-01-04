@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Midtrans from 'midtrans-client'
+import Midtrans from 'midtrans-client';
 
 export async function POST(
   req: Request,
