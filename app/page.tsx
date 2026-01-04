@@ -18,7 +18,7 @@ export default function Home() {
       <Header />
 
       {/* ================= HERO / BANNER ================= */}
-      <section className="mt-16">
+      <section className="mt-12">
         <Carousel plugins={[Autoplay({ delay: 3000 })]}>
           <CarouselContent>
             {[1, 2, 3].map((item) => (
