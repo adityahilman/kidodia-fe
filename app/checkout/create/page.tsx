@@ -50,9 +50,10 @@ export default function CreateCheckoutPage() {
                                 type="email"
                                 placeholder="you@example.com"
                                 className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
+                                required
                             />
 
-                            <Button className="w-full rounded-lg py-3 text-sm font-medium">
+                            <Button className="w-full rounded-lg py-3 text-sm font-medium bg-blue-600 hover:bg-blue-700" type="submit">
                                 Continue
                             </Button>
                         </div>

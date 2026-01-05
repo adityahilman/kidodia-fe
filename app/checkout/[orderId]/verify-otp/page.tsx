@@ -59,7 +59,7 @@ export default function VerifyOtpPage() {
                                 required
                             />
 
-                            <button className="w-full rounded-lg bg-black py-3 text-sm font-medium text-white hover:bg-gray-800">
+                            <button className="w-full rounded-lg bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700">
                                 Verify
                             </button>
                         </div>
@@ -78,27 +78,47 @@ export default function VerifyOtpPage() {
             </main>
 
             {showMessage && otpIsValid && (
-                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center rounded-md">
-                    <div className="border p-10 rounded-lg bg-blue-400 text-white text-center">
-                        <p className="mt-2">
-                            Your OTP has been successfully verified.
-                        </p>
-                        <p className="mt-4 animate-pulse">
-                            Please wait, we will redirect you to the next step.
-                        </p>
-                    
-                    </div>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                <div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-xl animate-fade-up">
+                
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
+                    <svg
+                    className="h-6 w-6 text-emerald-600"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
                 </div>
+
+                <h3 className="text-lg font-semibold text-gray-900">
+                    OTP Verified
+                </h3>
+
+                <p className="mt-2 text-sm text-gray-600">
+                    Your OTP has been successfully verified.
+                </p>
+
+                <p className="mt-4 text-sm text-gray-500 animate-pulse">
+                    Redirecting you to the next step…
+                </p>
+                </div>
+            </div>
             )}
+
             {showMessageResend && (
-                <div className="absolute min-h-screen w-screen flex justify-center backdrop-blur-[2px] items-center rounded-md">
-                    <div className="p-4 rounded-lg bg-emerald-500 text-white text-center">
-                        <p className="mt-2">
-                            A new OTP has been sent to your email.
-                        </p>
-                    </div>
+            <div className="fixed inset-0 z-40 flex items-start justify-center pt-20">
+                <div className="rounded-xl bg-emerald-600 px-6 py-4 text-white shadow-lg animate-fade-up">
+                <p className="text-sm font-medium">
+                    A new OTP has been sent to your email.
+                </p>
                 </div>
+            </div>
             )}
+
+
 
             <Footer />
         </div>

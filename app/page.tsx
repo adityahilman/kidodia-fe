@@ -11,8 +11,16 @@ import {
 import { Button } from "@/components/ui/button"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const router = useRouter()
+
+  const btnProductDetail = (id: number) => {
+    router.push(`/products/${id}`)
+  }
+
+  
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-stone-50">
       <Header />
@@ -176,7 +184,7 @@ export default function Home() {
                 <p className="text-xs text-gray-600 mb-3">
                   Deskripsi singkat produk
                 </p>
-                <Button className="w-full rounded-lg">
+                <Button className="w-full rounded-lg bg-blue-600 hover:bg-blue-700" onClick={() => btnProductDetail(item)}>
                   Lihat Detail
                 </Button>
               </div>
