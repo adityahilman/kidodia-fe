@@ -110,7 +110,7 @@ export default function VerifyOtpPage() {
 
             {showMessageResend && (
             <div className="fixed inset-0 z-40 flex items-start justify-center pt-20">
-                <div className="rounded-xl bg-emerald-600 px-6 py-4 text-white shadow-lg animate-fade-up">
+                <div className="rounded-lg bg-emerald-100/50 border border-emerald-300 px-6 py-4 shadow-lg animate-fade-up">
                 <p className="text-sm font-medium">
                     A new OTP has been sent to your email.
                 </p>
