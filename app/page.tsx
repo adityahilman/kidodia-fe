@@ -14,7 +14,7 @@ import Footer from "@/components/footer"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden">
+    <div className="flex min-h-screen flex-col overflow-x-hidden bg-stone-50">
       <Header />
 
       {/* ================= HERO / BANNER ================= */}
@@ -27,7 +27,7 @@ export default function Home() {
                   <img
                     src={`https://placehold.co/1440x420?text=Banner+${item}`}
                     alt={`Banner ${item}`}
-                    className="h-[240px] md:h-[380px] w-full object-cover"
+                    className="h-60 md:h-95 w-full object-cover"
                   />
                 </a>
               </CarouselItem>
@@ -37,23 +37,23 @@ export default function Home() {
       </section>
 
       {/* ================= TITLE & CTA ================= */}
-      <section className="bg-gray-100 py-20 text-center">
+      <section className="py-20 text-center bg-stone-100">
         <div className="container mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl font-bold tracking-tight">
+          <h1 className="text-4xl font-bold tracking-tight text-stone-900">
             Cetak Photobook untuk Semua Momen Bahagia
           </h1>
           <p className="mt-4 text-gray-700">
             Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi
             untuk liburan, pernikahan, ulang tahun, dan keluarga.
           </p>
-          <Button className="mt-8 px-14 py-6 text-lg rounded-xl">
+          <Button className="mt-8 px-14 py-6 text-lg rounded-lg bg-blue-600 hover:bg-blue-700">
             Buat Photobook Sekarang
           </Button>
         </div>
       </section>
 
       {/* ================= SOCIAL PROOF ================= */}
-      <section className="py-20 bg-white text-center">
+      <section className="py-20 bg-stone-50 text-center">
         <div className="container mx-auto max-w-4xl px-4">
           <h2 className="text-2xl font-semibold">
             Dipercaya untuk Mengabadikan Banyak Momen Berharga
