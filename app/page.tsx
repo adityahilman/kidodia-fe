@@ -201,27 +201,38 @@ export default function Home() {
           </h2>
 
           <div className="space-y-4">
-            {[
-              {
-                q: "Photobook cocok untuk momen apa saja?",
-                a: "Cocok untuk semua momen bahagia seperti liburan, pernikahan, dan keluarga.",
-              },
-              {
-                q: "Bisa order dari HP?",
-                a: "Bisa, semua proses bisa dilakukan langsung dari handphone.",
-              },
-              {
-                q: "Berapa lama proses cetak?",
-                a: "Rata-rata 7–14 hari kerja.",
-              },
-            ].map((item) => (
-              <details key={item.q} className="rounded-xl bg-white p-4 shadow-sm">
-                <summary className="cursor-pointer font-medium">
-                  {item.q}
-                </summary>
-                <p className="mt-2 text-sm text-gray-600">{item.a}</p>
-              </details>
-            ))}
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Photobook cocok untuk momen apa saja?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Cocok untuk semua momen bahagia seperti liburan, pernikahan, dan keluarga.
+              </p>
+            </details>
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Bisa order dari HP?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Bisa, semua proses bisa dilakukan langsung dari handphone.
+              </p>
+            </details>
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Berapa lama proses cetak?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Rata-rata 7–14 hari kerja.
+              </p>
+            </details>
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Saya sudah pernah pesan, tapi belum upload fotonya, bagaimana caranya ya?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Untuk upload foto, silahkan klik link ini lalu masukkan nomor order dan email yang digunakan saat pemesanan: <span className="text-blue-600"><a href={`${process.env.NEXT_PUBLIC_BASE_URL}/order`}>https://kidodia.com/order</a></span>
+              </p>
+            </details>
           </div>
         </div>
       </section>

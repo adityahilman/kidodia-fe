@@ -4,7 +4,7 @@ export default function Header() {
             <div className="mx-auto flex justify-center items-center">
                 <h1 className="font-semibold tracking-wider">
                     <a href="/">
-                    Kidodia.id</a>
+                    Kidodia</a>
                 </h1>
             </div>
         </header>
