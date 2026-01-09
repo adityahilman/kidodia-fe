@@ -6,12 +6,22 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { v6 as uuidv6 } from "uuid";
 
+function generateOrderId() {
+  const date = new Date();
+  const dateStr = date
+    .toISOString()
+    .slice(0, 10)
+    .replace(/-/g, "");
+  const randomStr = Math.floor(1000 + Math.random() * 900000);
+  return `PB-${dateStr}-${randomStr}`;
+}
+
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
 
   const handleOrder = () => {
-    const orderId = uuidv6();
+    const orderId = generateOrderId();
     router.push(`/checkout/create?orderId=${orderId}&product=${slug}`);
   };
 
