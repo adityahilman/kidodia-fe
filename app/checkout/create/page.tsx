@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
+import { sendOtp } from "@/lib/api/auth";
 
 export default function CreateCheckoutPage() {
     const router = useRouter();
@@ -11,10 +12,21 @@ export default function CreateCheckoutPage() {
     const orderId = searchParams.get('orderId');
     const productSlug = searchParams.get('product');
 
-    const btnSubmit = (e: React.FormEvent) => {
+    const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here
-        router.push(`/checkout/${orderId}/verify-otp`);
+        const formData = new FormData(e.target as HTMLFormElement);
+        const fullname = formData.get('fullname') as string;
+        const email = formData.get('email') as string;
+
+        await sendOtp(fullname, email, orderId!)
+            .then((res) => {
+                router.push(`/checkout/${orderId}/verify-otp`);
+                console.log('OTP sent:', res);
+            })
+            .catch((err) => {
+                console.error('Error sending OTP:', err);
+            });
+        
     }
 
     return (
@@ -47,6 +59,14 @@ export default function CreateCheckoutPage() {
                     <form id="form-input-email" onSubmit={btnSubmit}>
                         <div className="space-y-4">
                             <input
+                                name="fullname"
+                                type="text"
+                                placeholder="Full Name"
+                                className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
+                                required
+                            />
+                            <input
+                                name="email"
                                 type="email"
                                 placeholder="you@example.com"
                                 className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
