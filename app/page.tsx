@@ -12,15 +12,24 @@ import { Button } from "@/components/ui/button"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { getProducts } from "@/lib/api/products"
 
 export default function Home() {
   const router = useRouter()
+  const [products, setProducts] = useState<any[]>([])
 
   const btnProductDetail = (id: number) => {
     router.push(`/products/${id}`)
   }
 
-  
+  useEffect(() => {
+    getProducts().then((data) => {
+      setProducts(data)
+      console.log("Products:", data)
+    })
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-stone-50">
       <Header />
@@ -174,21 +183,43 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div key={item} className="rounded-xl border p-4">
-                <img
-                  src={`https://placehold.co/300x300?text=Product+${item}`}
-                  className="mb-3 rounded-lg"
-                />
-                <h3 className="font-semibold">Produk {item}</h3>
-                <p className="text-xs text-gray-600 mb-3">
-                  Deskripsi singkat produk
-                </p>
-                <Button className="w-full rounded-lg bg-blue-600 hover:bg-blue-700" onClick={() => btnProductDetail(item)}>
-                  Lihat Detail
-                </Button>
-              </div>
-            ))}
+            {products
+              .filter((product: any) => product.is_active) // Only show active products
+              .map((product: any) => (
+                <div key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer" onClick={() => btnProductDetail(product.slug)}>
+                  <img
+                    src={product.image_main_url}
+                    className="mb-3 rounded-md"
+                    alt={product.main_title}
+                  />
+                  <h3 className="font-semibold">{product.main_title}</h3>
+                  <p className="text-xs text-gray-600 mb-3">
+                    {product.main_description}
+                  </p>
+                  <div className="mb-3">
+                    {product.discount_amount > 0 ? (
+                      <div>
+                        <span className="text-gray-400 line-through mr-2">
+                          Rp{product.price.toLocaleString("id-ID")}
+                        </span>
+                        <span className="text-green-600 ">
+                          Rp{product.final_price.toLocaleString("id-ID")}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-blue-600">
+                        Rp{product.price.toLocaleString("id-ID")}
+                      </span>
+                    )}
+                  </div>
+                  <Button
+                    className="w-full rounded bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                    onClick={() => btnProductDetail(product.slug)}
+                  >
+                    Lihat Detail
+                  </Button>
+                </div>
+              ))}
           </div>
         </div>
       </section>

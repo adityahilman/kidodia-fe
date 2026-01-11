@@ -15,10 +15,9 @@ export default function CreateCheckoutPage() {
     const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        const fullname = formData.get('fullname') as string;
         const email = formData.get('email') as string;
 
-        await sendOtp(fullname, email, orderId!)
+        await sendOtp(email, orderId!)
             .then((res) => {
                 router.push(`/checkout/${orderId}/verify-otp`);
                 console.log('OTP sent:', res);

@@ -25,7 +25,7 @@ export default function VerifyOtpPage() {
                 console.log('OTP verified:', res);
                 setTimeout(() => {
                     setShowMessage(false);
-                    router.push(`/checkout/${orderId}/payment`);
+                    router.push(`/checkout/${orderId}/address`);
                 }, 3000);
             })
             .catch((err) => {
