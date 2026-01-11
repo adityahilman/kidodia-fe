@@ -6,3 +6,8 @@ export async function getProducts() {
     const response = await axios.get(`${API_URL}/products`);
     return response.data;
 }
+
+export async function getProductBySlug(slug: string) {
+    const response = await axios.get(`${API_URL}/products/${slug}`);
+    return response.data;
+}

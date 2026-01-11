@@ -4,6 +4,8 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
+import { getProductBySlug } from "@/lib/api/products";
+import { useState, useEffect } from "react";
 
 function generateOrderId() {
   const date = new Date();
@@ -18,6 +20,16 @@ function generateOrderId() {
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
+  const [product, setProduct] = useState<any>(null);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      const data = await getProductBySlug(slug);
+      setProduct(data);
+    }
+    fetchProduct();
+  }, [slug]);
+
 
   const handleOrder = () => {
     const orderId = generateOrderId();
@@ -34,13 +46,15 @@ export default function ProductDetailPage() {
 
           {/* Image */}
           <div className="relative group">
-            <span className="absolute top-4 left-4 z-10 rounded-full bg-red-500 px-4 py-1 text-sm font-semibold text-white">
-              Promo
-            </span>
+            {product?.is_promo ? (
+              <span className="absolute top-4 left-4 z-10 rounded-full bg-red-500 px-4 py-1 text-sm font-semibold text-white">
+                Promo
+              </span>
+            ) : null}
 
             <img
-              src={`https://placehold.co/800x600?text=${slug}`}
-              alt="Photobook Preview"
+              src={product?.image_main_url || `https://placehold.co/800x600?text=${slug}`}
+              alt={product?.main_title || "Photobook Preview"}
               className="w-full rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
             />
           </div>
@@ -48,26 +62,29 @@ export default function ProductDetailPage() {
           {/* Info */}
           <div>
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              Photobook Premium
+              {product?.main_title || "Photobook Premium"}
             </h1>
 
             <p className="mt-3 text-gray-500 max-w-md">
-              Abadikan momen spesial Anda dalam photobook berkualitas tinggi,
-              dicetak dengan standar premium.
+              {product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium."}
             </p>
 
             {/* Price Card */}
             <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
               <div className="flex items-end gap-4">
                 <span className="text-3xl font-semibold text-blue-600">
-                  Rp 99.000
+                  Rp {product?.final_price?.toLocaleString("id-ID") || "99.000"}
                 </span>
-                <span className="text-lg text-gray-400 line-through">
-                  Rp 159.000
-                </span>
-                <span className="rounded-md bg-green-100 px-2 py-1 text-sm font-medium text-green-700">
-                  Hemat 38%
-                </span>
+                {product?.discount_amount > 0 && (
+                  <span className="text-lg text-gray-400 line-through">
+                    Rp {product?.price?.toLocaleString("id-ID")}
+                  </span>
+                )}
+                {product?.discount_amount > 0 && (
+                  <span className="rounded-md bg-green-100 px-2 py-1 text-sm font-medium text-green-700">
+                    Hemat {Math.round((product.discount_amount / product.price) * 100)}%
+                  </span>
+                )}
               </div>
 
               <Button
@@ -84,17 +101,24 @@ export default function ProductDetailPage() {
 
             {/* Features */}
             <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
-              {[
-                "Kertas tebal & tahan lama",
-                "Warna tajam & detail",
-                "Desain simpel & elegan",
-                "Upload foto langsung dari HP",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-blue-600" />
-                  {item}
-                </li>
-              ))}
+              {product?.specifications
+                ? product.specifications.split(",").map((item: string) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-blue-600" />
+                      {item.trim()}
+                    </li>
+                  ))
+                : [
+                    "Kertas tebal & tahan lama",
+                    "Warna tajam & detail",
+                    "Desain simpel & elegan",
+                    "Upload foto langsung dari HP",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="h-2 w-2 rounded-full bg-blue-600" />
+                      {item}
+                    </li>
+                  ))}
             </ul>
           </div>
         </div>
