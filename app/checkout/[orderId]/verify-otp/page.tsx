@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { verifyOtp } from "@/lib/api/auth";
 
 export default function VerifyOtpPage() {
     const router = useRouter();
@@ -12,16 +13,26 @@ export default function VerifyOtpPage() {
     const [showMessageResend, setShowMessageResend] = useState(false);
     const { orderId } = useParams<{ orderId: string }>();
 
-    const btnSubmit = (e: React.FormEvent) => {
+    const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle OTP verification logic here
-        console.log("OTP Verified");
-        setOtpIsValid(true);
-        setShowMessage(true);
-        setTimeout(() => {
-            setShowMessage(false);
-            router.push(`/checkout/${orderId}/payment`);
-        }, 3000);
+        const formData = new FormData(e.target as HTMLFormElement);
+        const otpCode = formData.get('otpCode') as string;
+
+        await verifyOtp(orderId, otpCode)
+            .then((res) => {
+                setOtpIsValid(true);
+                setShowMessage(true);
+                console.log('OTP verified:', res);
+                setTimeout(() => {
+                    setShowMessage(false);
+                    router.push(`/checkout/${orderId}/payment`);
+                }, 3000);
+            })
+            .catch((err) => {
+                console.error('Error verifying OTP:', err);
+            });
+       
+     
     }   
 
     const btnResend = () => {
@@ -51,6 +62,7 @@ export default function VerifyOtpPage() {
                         <div className="space-y-4">
                             <input
                                 type="text"
+                                name="otpCode"
                                 placeholder="Enter OTP"
                                 inputMode="numeric"
                                 pattern="[0-9]*"
