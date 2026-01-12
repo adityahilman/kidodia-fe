@@ -54,16 +54,16 @@ export default function Home() {
       </section>
 
       {/* ================= TITLE & CTA ================= */}
-      <section className="py-20 text-center bg-stone-100">
+      <section className="py-20 text-center bg-[#00947e]/10">
         <div className="container mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-stone-900">
+          <h1 className="text-4xl font-bold tracking-tight text-stone-700">
             Cetak Photobook untuk Semua Momen Bahagia
           </h1>
           <p className="mt-4 text-gray-700">
             Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi
             untuk liburan, pernikahan, ulang tahun, dan keluarga.
           </p>
-          <Button className="mt-8 px-14 py-6 text-lg rounded-lg bg-blue-600 hover:bg-blue-700">
+          <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300" onClick={() => router.push('/products')}>
             Buat Photobook Sekarang
           </Button>
         </div>
@@ -213,7 +213,7 @@ export default function Home() {
                     )}
                   </div>
                   <Button
-                    className="w-full rounded bg-blue-600 hover:bg-blue-700 cursor-pointer"
+                    className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
                     onClick={() => btnProductDetail(product.slug)}
                   >
                     Lihat Detail

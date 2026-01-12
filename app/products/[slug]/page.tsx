@@ -98,7 +98,7 @@ export default function ProductDetailPage() {
 
               <Button
                 onClick={handleOrder}
-                className="mt-6 w-full rounded-xl py-6 text-lg font-semibold bg-blue-600 hover:bg-blue-700 transition"
+                className="mt-6 w-full rounded py-6 text-lg font-semibold bg-[#0095a0] hover:bg-[#2f4858] transition"
               >
                 Pesan Sekarang
               </Button>
@@ -177,7 +177,7 @@ export default function ProductDetailPage() {
           <div className="text-center pt-10">
             <Button
               onClick={handleOrder}
-              className="px-14 py-7 text-lg font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 transition"
+              className="px-14 py-7 text-lg font-semibold rounded bg-[#0095a0] hover:bg-[#2f4858] transition"
             >
               Pesan Photobook Sekarang
             </Button>
