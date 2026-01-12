@@ -21,7 +21,6 @@ export default function VerifyOtpPage() {
 
         await verifyOtp(orderNumber, otpCode)
             .then((res) => {
-                updateInitialOrder(orderNumber!, undefined!, "OTP_VERIFIED");
                 setOtpIsValid(true);
                 setShowMessage(true);
                 console.log('OTP verified:', res);
