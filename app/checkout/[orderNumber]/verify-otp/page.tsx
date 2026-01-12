@@ -5,7 +5,6 @@ import Header from "@/components/header";
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { verifyOtp } from "@/lib/api/auth";
-import { updateInitialOrder } from "@/lib/api/orders";
 
 export default function VerifyOtpPage() {
     const router = useRouter();
