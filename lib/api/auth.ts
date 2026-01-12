@@ -13,10 +13,10 @@ export async function sendOtp(email: string, orderId: string) {
     return response.data;
 }
 
-export async function verifyOtp(orderId: string, otpCode: string) {
+export async function verifyOtp(orderNumber: string, otpCode: string) {
 
     const response = await axios.post(`${API_URL}/auth/verify-otp`, {
-        order_number: orderId,
+        order_number: orderNumber,
         code: otpCode,
     });
 

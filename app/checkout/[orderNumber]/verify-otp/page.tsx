@@ -5,27 +5,29 @@ import Header from "@/components/header";
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { verifyOtp } from "@/lib/api/auth";
+import { updateInitialOrder } from "@/lib/api/orders";
 
 export default function VerifyOtpPage() {
     const router = useRouter();
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageResend, setShowMessageResend] = useState(false);
-    const { orderId } = useParams<{ orderId: string }>();
+    const { orderNumber } = useParams<{ orderNumber: string }>();
 
     const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
         const otpCode = formData.get('otpCode') as string;
 
-        await verifyOtp(orderId, otpCode)
+        await verifyOtp(orderNumber, otpCode)
             .then((res) => {
+                updateInitialOrder(orderNumber!, undefined!, "OTP_VERIFIED");
                 setOtpIsValid(true);
                 setShowMessage(true);
                 console.log('OTP verified:', res);
                 setTimeout(() => {
                     setShowMessage(false);
-                    router.push(`/checkout/${orderId}/address`);
+                    router.push(`/checkout/${orderNumber}/address`);
                 }, 3000);
             })
             .catch((err) => {

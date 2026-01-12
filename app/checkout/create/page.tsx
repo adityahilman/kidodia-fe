@@ -5,11 +5,12 @@ import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
 import { sendOtp } from "@/lib/api/auth";
+import { updateInitialOrder } from "@/lib/api/orders";
 
 export default function CreateCheckoutPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const orderId = searchParams.get('orderId');
+    const orderNumber = searchParams.get('orderNumber');
     const productSlug = searchParams.get('product');
 
     const btnSubmit = async (e: React.FormEvent) => {
@@ -17,9 +18,10 @@ export default function CreateCheckoutPage() {
         const formData = new FormData(e.target as HTMLFormElement);
         const email = formData.get('email') as string;
 
-        await sendOtp(email, orderId!)
+        await sendOtp(email, orderNumber!)
             .then((res) => {
-                router.push(`/checkout/${orderId}/verify-otp`);
+                updateInitialOrder(orderNumber!, email, "OTP_SENT");
+                router.push(`/checkout/${orderNumber}/verify-otp`);
                 console.log('OTP sent:', res);
             })
             .catch((err) => {
@@ -37,18 +39,18 @@ export default function CreateCheckoutPage() {
                     
                     <div className="mb-6 text-center">
                         <h2 className="text-xl font-semibold text-gray-900">
-                            Continue Your Order
+                            Proses Pemesanan
                         </h2>
                         <p className="mt-2 text-sm text-gray-500">
-                            Enter your valid email address to proceed
+                            Masukkan email kamu untuk melanjutkan pemesanan.
                         </p>
                     </div>
 
                     <div className="mb-6 rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
-                        <div className="flex justify-between">
+                        {/* <div className="flex justify-between">
                             <span className="font-medium">Order ID</span>
                             <span>{orderId}</span>
-                        </div>
+                        </div> */}
                         <div className="mt-2 flex justify-between">
                             <span className="font-medium">Product</span>
                             <span>{productSlug}</span>
@@ -57,13 +59,7 @@ export default function CreateCheckoutPage() {
 
                     <form id="form-input-email" onSubmit={btnSubmit}>
                         <div className="space-y-4">
-                            <input
-                                name="fullname"
-                                type="text"
-                                placeholder="Full Name"
-                                className="w-full rounded-lg border px-4 py-3 text-sm focus:border-black focus:outline-none"
-                                required
-                            />
+
                             <input
                                 name="email"
                                 type="email"
@@ -72,8 +68,8 @@ export default function CreateCheckoutPage() {
                                 required
                             />
 
-                            <Button className="w-full rounded-lg py-3 text-sm font-medium bg-blue-600 hover:bg-blue-700" type="submit">
-                                Continue
+                            <Button id="btn-submit-email" className="w-full rounded-lg py-3 text-sm font-medium bg-blue-600 hover:bg-blue-700" type="submit">
+                                Submit
                             </Button>
                         </div>
 
@@ -81,11 +77,13 @@ export default function CreateCheckoutPage() {
                     
                     <div className="mt-6 text-center">
                         <Button
+                            id="btn-check-order-status"
                             variant="link"
-                            className="text-sm text-gray-500 hover:text-black p-0"
+                            className="text-sm text-gray-500 hover:text-black p-0 cursor-pointer"
                             onClick={() => router.push('/login')}
                         >
-                            Already have an account? Click here to Login
+                            Sudah pernah pesan?<br/>
+                            Klik disini untuk melihat status pesanan.
                         </Button>
                     </div>
                 </div>

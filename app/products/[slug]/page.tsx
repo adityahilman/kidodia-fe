@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { getProductBySlug } from "@/lib/api/products";
 import { useState, useEffect } from "react";
+import { createInitialOrder } from "@/lib/api/orders";
 
 function generateOrderId() {
   const date = new Date();
@@ -31,9 +32,17 @@ export default function ProductDetailPage() {
   }, [slug]);
 
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     const orderId = generateOrderId();
-    router.push(`/checkout/create?orderId=${orderId}&product=${slug}`);
+    await createInitialOrder(orderId, slug)
+      .then((res) => {
+          console.log('Initial order created:', res);
+          router.push(`/checkout/create?orderNumber=${orderId}&product=${slug}`);
+      })
+      .catch((err) => {
+          console.error('Error creating initial order:', err);
+      });
+    
   };
 
   return (
