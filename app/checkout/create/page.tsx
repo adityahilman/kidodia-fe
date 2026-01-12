@@ -68,7 +68,7 @@ export default function CreateCheckoutPage() {
                                 required
                             />
 
-                            <Button id="btn-submit-email" className="w-full rounded-lg py-3 text-sm font-medium bg-blue-600 hover:bg-blue-700" type="submit">
+                            <Button id="btn-submit-email" className="w-full rounded py-3 text-sm font-medium bg-[#0095a0] hover:bg-[#00796b]" type="submit">
                                 Submit
                             </Button>
                         </div>
@@ -80,7 +80,7 @@ export default function CreateCheckoutPage() {
                             id="btn-check-order-status"
                             variant="link"
                             className="text-sm text-gray-500 hover:text-black p-0 cursor-pointer"
-                            onClick={() => router.push('/login')}
+                            onClick={() => router.push('/order')}
                         >
                             Sudah pernah pesan?<br/>
                             Klik disini untuk melihat status pesanan.

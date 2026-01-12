@@ -71,7 +71,7 @@ export default function VerifyOtpPage() {
                                 required
                             />
 
-                            <button className="w-full rounded-lg bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700">
+                            <button className="w-full rounded bg-[#0095a0] py-3 text-sm font-medium text-white hover:bg-[#00796b] cursor-pointer">
                                 Verify
                             </button>
                         </div>

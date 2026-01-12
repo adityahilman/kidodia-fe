@@ -17,3 +17,13 @@ export async function updateInitialOrder(orderNumber: string, email: string, sta
     });
     return response.data;
 }
+
+export async function getOrderStatus(orderNumber: string, email: string) {
+    const response = await axios.get(`${API_URL}/orders/status`, {
+        params: {
+            order_number: orderNumber,
+            email: email
+        }
+    });
+    return response.data;
+}

@@ -3,13 +3,26 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { useParams, useRouter } from "next/navigation";
+import { getOrderStatus } from "@/lib/api/orders";
+import { useRouter } from "next/navigation";
 
 export default function OrderPage() {
+    const router = useRouter();
 
-    const btnSubmit = (e: React.FormEvent) => {
+    const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here
+        const formData = new FormData(e.target as HTMLFormElement);
+        const orderNumber = formData.get('orderNumber') as string;
+        const email = formData.get('email') as string;
+
+        await getOrderStatus(orderNumber, email)
+            .then((res) => {
+                console.log('Order status retrieved:', res);
+                // Handle displaying order status to the user
+            })
+            .catch((err) => {
+                console.error('Error retrieving order status:', err);
+            });
     }
 
     return (
@@ -21,10 +34,10 @@ export default function OrderPage() {
                     
                     <div className="mb-6 text-center">
                         <h2 className="text-xl font-semibold text-gray-900">
-                            Check Your Order
+                            Cek Status Pesanan
                         </h2>
                         <p className="mt-2 text-sm text-gray-500">
-                            Enter your valid order number and email address
+                            Masukkan nomor pesanan dan email yang Anda gunakan saat pemesanan.
                         </p>
                     </div>
 
@@ -45,8 +58,8 @@ export default function OrderPage() {
                             />
 
                            
-                            <Button className="w-full rounded-lg py-3 text-sm font-medium bg-blue-600 hover:bg-blue-700" type="submit">
-                                Continue
+                            <Button className="w-full rounded py-3 text-sm font-medium bg-[#0095a0] hover:bg-[#00796b] cursor-pointer" type="submit">
+                                Submit
                             </Button>
                         </div>
 
