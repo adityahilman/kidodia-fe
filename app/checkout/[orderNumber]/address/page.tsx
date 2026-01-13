@@ -1,21 +1,26 @@
 'use client';
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { createOrder } from "@/lib/api/orders";
 
 export default function AddressPage() {
   const { orderNumber } = useParams<{ orderNumber: string }>();
-
+  const router = useRouter();
   const btnSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const fullName = formData.get('fullName') as string;
-    const phoneNumber = formData.get('phoneNumber') as string;
+    let phoneNumber = formData.get('phoneNumber') as string;
     const address = formData.get('address') as string;
     const city = formData.get('city') as string;
     const province = formData.get('province') as string;
     const postalCode = formData.get('postalCode') as string;
+
+    phoneNumber = phoneNumber.replace(/^0+/, '');
+    if (!phoneNumber.startsWith('62')) {
+      phoneNumber = '62' + phoneNumber; 
+    }
 
     await createOrder(
       orderNumber!,
@@ -28,7 +33,7 @@ export default function AddressPage() {
     )
       .then((res) => {
         console.log('Order created:', res);
-        // Redirect to the next step in the checkout process
+        router.push(`/checkout/${orderNumber}/summary`);
       })
       .catch((err) => {
         console.error('Error creating order:', err);
