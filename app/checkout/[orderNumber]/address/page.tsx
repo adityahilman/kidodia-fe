@@ -2,9 +2,38 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useParams } from "next/navigation";
+import { createOrder } from "@/lib/api/orders";
 
 export default function AddressPage() {
-  const { orderId } = useParams<{ orderId: string }>();
+  const { orderNumber } = useParams<{ orderNumber: string }>();
+
+  const btnSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const fullName = formData.get('fullName') as string;
+    const phoneNumber = formData.get('phoneNumber') as string;
+    const address = formData.get('address') as string;
+    const city = formData.get('city') as string;
+    const province = formData.get('province') as string;
+    const postalCode = formData.get('postalCode') as string;
+
+    await createOrder(
+      orderNumber!,
+      fullName,
+      phoneNumber,
+      address,
+      city,
+      province,
+      postalCode
+    )
+      .then((res) => {
+        console.log('Order created:', res);
+        // Redirect to the next step in the checkout process
+      })
+      .catch((err) => {
+        console.error('Error creating order:', err);
+      });
+  }
   
   return (
     <div className="flex min-h-screen flex-col bg-gray-50">
@@ -20,7 +49,7 @@ export default function AddressPage() {
             </p>
           </div>
           <div>
-            <form className="space-y-4">
+            <form className="space-y-10" onSubmit={btnSubmit}>
               <div>
                 <label
                   htmlFor="fullName"
@@ -33,7 +62,7 @@ export default function AddressPage() {
                   id="fullName"
                   name="fullName"
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
                 />
               </div>
               <div>
@@ -41,15 +70,20 @@ export default function AddressPage() {
                   htmlFor="phoneNumber"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Nomor Telepon
+                  Nomor WhatsApp
                 </label>
-                <input
-                  type="text"
+                <div className="flex">
+                  <span className="inline-flex items-center px-2 text-sm text-gray-500 border border-gray-300 rounded-l-md bg-gray-50">+62</span>
+                  <input
+                  type="number"
                   id="phoneNumber"
                   name="phoneNumber"
+                  placeholder="Cth: 8123456789"
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
                 />
+                </div>
+                
               </div>
               <div>
                 <label
@@ -63,7 +97,7 @@ export default function AddressPage() {
                   name="address"
                   rows={5}
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
                   placeholder="Cth: Jalan Sudirman, RT 005/RW 03 No 10, Jakarta Selatan"
                 ></textarea>
               </div>
@@ -80,7 +114,7 @@ export default function AddressPage() {
                   id="city"
                   name="city"
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 text-sm border-b"
                 />
               </div>
 
@@ -96,7 +130,7 @@ export default function AddressPage() {
                   id="province"
                   name="province"
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border-b"
                 />
               </div>
              
@@ -112,7 +146,7 @@ export default function AddressPage() {
                   id="postalCode"
                   name="postalCode"
                   required
-                  className="mt-1 block w-full p-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border-b"
+                  className="mt-1 block w-full px-2 rounded border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border-b"
                 />
               </div>
               <div>
