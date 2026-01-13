@@ -78,6 +78,14 @@ export default function ProductDetailPage() {
               {product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium."}
             </p>
 
+            {product?.specifications && (
+              <ul className="mt-2 mb-2 text-sm text-gray-700 list-disc list-inside">
+                {JSON.parse(product.specifications).map((spec: string, idx: number) => (
+                  <li key={idx}>{spec}</li>
+                ))}
+              </ul>
+            )}
+
             {/* Price Card */}
             <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm">
               <div className="flex items-end gap-4">
@@ -107,28 +115,6 @@ export default function ProductDetailPage() {
                 * Proses mudah, cukup dari HP
               </p>
             </div>
-
-            {/* Features */}
-            <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-700">
-              {product?.specifications
-                ? product.specifications.split(",").map((item: string) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-blue-600" />
-                      {item.trim()}
-                    </li>
-                  ))
-                : [
-                    "Kertas tebal & tahan lama",
-                    "Warna tajam & detail",
-                    "Desain simpel & elegan",
-                    "Upload foto langsung dari HP",
-                  ].map((item) => (
-                    <li key={item} className="flex items-center gap-2">
-                      <span className="h-2 w-2 rounded-full bg-blue-600" />
-                      {item}
-                    </li>
-                  ))}
-            </ul>
           </div>
         </div>
       </main>
