@@ -9,6 +9,7 @@ import { verifyOtp } from "@/lib/api/auth";
 export default function VerifyOtpPage() {
     const router = useRouter();
     const [otpIsValid, setOtpIsValid] = useState(false);
+    const [otpIsInvalid, setOtpIsInvalid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageResend, setShowMessageResend] = useState(false);
     const { orderNumber } = useParams<{ orderNumber: string }>();
@@ -29,6 +30,12 @@ export default function VerifyOtpPage() {
                 }, 3000);
             })
             .catch((err) => {
+                setOtpIsInvalid(true);
+                setShowMessage(true);
+                setTimeout(() => {
+                    setShowMessage(false);
+                    setOtpIsInvalid(false);
+                }, 3000);
                 console.error('Error verifying OTP:', err);
             });
        
@@ -51,10 +58,10 @@ export default function VerifyOtpPage() {
                     
                     <div className="mb-6 text-center">
                         <h2 className="text-xl font-semibold text-gray-900">
-                            Confirm Verification Code
+                            Konfirmasi Kode OTP
                         </h2>
                         <p className="mt-2 text-sm text-gray-500">
-                            Please check your email for the code to continue your order.
+                            Silahkan masukkan kode OTP yang telah dikirimkan ke email Anda.
                         </p>
                     </div>
 
@@ -72,7 +79,7 @@ export default function VerifyOtpPage() {
                             />
 
                             <button className="w-full rounded bg-[#0095a0] py-3 text-sm font-medium text-white hover:bg-[#00796b] cursor-pointer">
-                                Verify
+                                Submit
                             </button>
                         </div>
                     </form>
@@ -82,7 +89,7 @@ export default function VerifyOtpPage() {
                             className="text-sm text-gray-500 hover:text-black p-0 cursor-pointer hover:underline"
                             onClick={btnResend}
                         >
-                            Didn't receive the code? Click here to resend
+                            Belum menerima kode? Klik disini untuk kirim ulang.
                         </button>
                     </div>
                    
@@ -106,16 +113,44 @@ export default function VerifyOtpPage() {
                 </div>
 
                 <h3 className="text-lg font-semibold text-gray-900">
-                    OTP Verified
+                    Berhasil Verifikasi OTP
                 </h3>
 
                 <p className="mt-2 text-sm text-gray-600">
-                    Your OTP has been successfully verified.
+                    OTP Anda telah berhasil diverifikasi.
                 </p>
 
                 <p className="mt-4 text-sm text-gray-500 animate-pulse">
-                    Redirecting you to the next step…
+                    Mengalihkan Anda ke langkah berikutnya, mohon menunggu…
                 </p>
+                </div>
+            </div>
+            )}
+
+            {showMessage && otpIsInvalid && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+                <div className="w-full max-w-sm rounded-2xl bg-white p-8 text-center shadow-xl animate-fade-up">
+                
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
+                    <svg
+                    className="h-6 w-6 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </div>
+
+                <h3 className="text-lg font-semibold text-gray-900">
+                    Gagal Verifikasi OTP
+                </h3>
+
+                <p className="mt-2 text-sm text-gray-600">
+                    OTP yang Anda masukkan salah. Silahkan coba lagi.
+                </p>
+
                 </div>
             </div>
             )}
