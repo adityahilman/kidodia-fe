@@ -3,11 +3,11 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 
-export async function sendOtp(email: string, orderId: string) {
+export async function sendOtp(email: string, orderNumber: string) {
 
     const response = await axios.post(`${API_URL}/auth/send-otp`, {
         email,
-        order_number: orderId,
+        order_number: orderNumber,
     });
 
     return response.data;

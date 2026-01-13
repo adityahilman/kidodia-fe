@@ -3,16 +3,18 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { verifyOtp } from "@/lib/api/auth";
 
-export default function CheckoutVerifyOtpPage() {
+export default function VerifyOtpPage() {
     const router = useRouter();
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [otpIsInvalid, setOtpIsInvalid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageResend, setShowMessageResend] = useState(false);
-    const { orderNumber } = useParams<{ orderNumber: string }>();
+    // const { orderNumber } = useParams<{ orderNumber: string }>();
+    const searchParams = useSearchParams();
+    const orderNumber = searchParams.get('orderNumber') || '';
 
     const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -26,7 +28,7 @@ export default function CheckoutVerifyOtpPage() {
                 console.log('OTP verified:', res);
                 setTimeout(() => {
                     setShowMessage(false);
-                    router.push(`/checkout/${orderNumber}/address`);
+                    router.push(`/dashboard`);
                 }, 3000);
             })
             .catch((err) => {

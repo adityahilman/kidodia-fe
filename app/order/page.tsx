@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/button";
 import { getOrderStatus } from "@/lib/api/orders";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { sendOtp } from "@/lib/api/auth";
 
 export default function OrderPage() {
     const router = useRouter();
 
     const [showMessage, setShowMessage] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -21,10 +23,17 @@ export default function OrderPage() {
         await getOrderStatus(orderNumber, email)
             .then((res) => {
                 setShowMessage(true);
+                sendOtp(email, orderNumber);
+                
+                router.push(`/verify-otp?orderNumber=${orderNumber}`);
                 console.log('Order status retrieved:', res);
                 // Handle displaying order status to the user
             })
             .catch((err) => {
+                setShowError(true);
+                setTimeout(() => {
+                    setShowError(false);
+                }, 3000);
                 console.error('Error retrieving order status:', err);
             });
     }
@@ -78,7 +87,13 @@ export default function OrderPage() {
                     )}
                     </div>
                     
-                   
+                    <div>
+                    {showError && (
+                        <p className="mt-4 text-center text-sm text-red-600">
+                            Nomor pesanan atau email tidak ditemukan. Silakan coba lagi.
+                        </p>
+                    )}
+                    </div>
                 </div>
             </main>
 

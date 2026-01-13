@@ -126,17 +126,16 @@ export default function ProductDetailPage() {
           {/* Cover Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <img
-              src="https://placehold.co/600x400?text=Cover+Detail"
+              src={product?.image_secondary_url || `https://placehold.co/800x600?text=${slug}`}
               alt="Cover Detail"
               className="rounded-2xl shadow-md"
             />
             <div className="max-w-md">
               <h2 className="text-2xl font-semibold text-gray-900">
-                Cover Elegan & Kokoh
+                {product?.second_title}
               </h2>
               <p className="mt-4 text-gray-600 leading-relaxed">
-                Menggunakan material cover premium yang kuat dan tahan lama,
-                memberikan kesan eksklusif sekaligus melindungi kenangan Anda.
+                {product?.second_description}
               </p>
             </div>
           </div>
@@ -145,22 +144,21 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="max-w-md order-2 lg:order-1">
               <h2 className="text-2xl font-semibold text-gray-900">
-                Kualitas Cetak Tajam
+                {product?.third_title}
               </h2>
               <p className="mt-4 text-gray-600 leading-relaxed">
-                Dicetak dengan teknologi high-resolution printing untuk warna
-                yang hidup, detail tajam, dan hasil yang konsisten di setiap halaman.
+                {product?.third_description}
               </p>
             </div>
             <img
-              src="https://placehold.co/600x400?text=Printing+Quality"
+              src={product?.image_tertiary_url || `https://placehold.co/800x600?text=${slug}`}
               alt="Printing Quality"
               className="rounded-2xl shadow-md order-1 lg:order-2"
             />
           </div>
 
           {/* CTA Again */}
-          <div className="text-center pt-10">
+          <div className="text-center">
             <Button
               onClick={handleOrder}
               className="px-14 py-7 text-lg font-semibold rounded bg-[#0095a0] hover:bg-[#2f4858] transition"
