@@ -2,7 +2,7 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getOrderDetails } from "@/lib/api/orders";
 
@@ -24,15 +24,23 @@ interface OrderSummary {
 }
 
 export default function PaymentPage() {
+  const router = useRouter();
   const { orderNumber } = useParams<{ orderNumber: string }>();
   const [order, setOrder] = useState<OrderSummary | null>(null);
 
-  // Simulate fetching order summary (replace with real API call)
   useEffect(() => {
     async function fetchOrder() {
       if (orderNumber) {
         const data = await getOrderDetails(orderNumber);
-        console.log('Fetched order details:', data);
+
+        if (data.status === 'PAID') {
+          console.log('Order already paid, redirecting to order page.');
+          setTimeout(() => {
+            router.push('/order')
+          }, 1000);
+          return;
+        }
+        
         setOrder({
           orderNumber: data.order_number,
           productTitle: data.product_title,
