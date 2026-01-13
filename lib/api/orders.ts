@@ -36,12 +36,17 @@ export async function createOrder(
     postalCode: string
 ) {
     const response = await axios.put(`${API_URL}/orders/${orderNumber}`, {
-        full_name: fullName,
+        fullname: fullName,
         phone: phoneNumber,
         address: address,
         city: city,
         province: province,
         postal_code: postalCode
     });
+    return response.data;
+}
+
+export async function getOrderDetails(orderNumber: string) {
+    const response = await axios.get(`${API_URL}/orders/detail/${orderNumber}`);
     return response.data;
 }
