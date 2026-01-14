@@ -65,7 +65,7 @@ export default function CheckoutVerifyOtpPage() {
                         </p>
                     </div>
 
-                    <form id="form-verify-otp" onSubmit={btnSubmit}>
+                    <form id="form-verify-otp-checkout" onSubmit={btnSubmit}>
                         <div className="space-y-4">
                             <input
                                 type="text"
