@@ -3,7 +3,7 @@ import Midtrans from 'midtrans-client';
 
 export async function POST(
   req: Request,
-  context: { params: { orderNumber?: string } }
+  context: { params: Promise<{ orderNumber?: string }> }
 ) {
   const { orderNumber = '' } = await context.params;
   if (!orderNumber) {
