@@ -6,8 +6,17 @@ import { Button } from "@/components/ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
 import { sendOtp } from "@/lib/api/auth";
 import { updateInitialOrder } from "@/lib/api/orders";
+import { Suspense } from "react";
 
 export default function CreateCheckoutPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CreateCheckoutContent />
+        </Suspense>
+    );
+}
+
+function CreateCheckoutContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('orderNumber');

@@ -2,17 +2,24 @@
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { useState } from "react";
-import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { verifyOtp } from "@/lib/api/auth";
 
 export default function VerifyOtpPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <VerifyOtpContent />
+        </Suspense>
+    );
+}
+
+function VerifyOtpContent() {
     const router = useRouter();
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [otpIsInvalid, setOtpIsInvalid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
     const [showMessageResend, setShowMessageResend] = useState(false);
-    // const { orderNumber } = useParams<{ orderNumber: string }>();
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('orderNumber') || '';
 
@@ -20,26 +27,6 @@ export default function VerifyOtpPage() {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
         const otpCode = formData.get('otpCode') as string;
-
-        // await verifyOtp(orderNumber, otpCode)
-        //     .then((res) => {
-        //         setOtpIsValid(true);
-        //         setShowMessage(true);
-        //         console.log('OTP verified:', res);
-        //         setTimeout(() => {
-        //             setShowMessage(false);
-        //             router.push(`/dashboard`);
-        //         }, 3000);
-        //     })
-        //     .catch((err) => {
-        //         setOtpIsInvalid(true);
-        //         setShowMessage(true);
-        //         setTimeout(() => {
-        //             setShowMessage(false);
-        //             setOtpIsInvalid(false);
-        //         }, 3000);
-        //         console.error('Error verifying OTP:', err);
-        //     });
 
         try {
             const res = await verifyOtp(orderNumber, otpCode);
