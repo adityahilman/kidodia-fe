@@ -1,13 +1,30 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
+import { getSession } from "@/lib/api/auth";
+import { getOrderSummary } from "@/lib/api/orders";
+
+type orderSummaryInterface = {
+    orderNumber: string
+    productTitle: string
+    totalPhoto: number
+    fullname: string
+    email: string
+    phone: string
+    address: string
+    city: string
+    province: string
+    postalCode: string
+    status: string
+}
 
 export default function UploadPage() {
     const [coverPreview, setCoverPreview] = useState<string | null>(null);
     const [photoCount, setPhotoCount] = useState(0);
+    const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null);
 
 
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,6 +34,35 @@ export default function UploadPage() {
         setCoverPreview(URL.createObjectURL(file));
     };
 
+    useEffect(() => {
+        async function getOrder() {
+            try {
+                const session = await getSession();
+                const orderNumber = session.order_number;
+                console.log('Session data:', session);
+
+                const data = await getOrderSummary(orderNumber);
+                setOrderSummary({
+                    orderNumber: data.order_number,
+                    productTitle: data.product_title,
+                    totalPhoto: data.total_photo,
+                    fullname: data.fullname,
+                    email: data.email,
+                    phone: data.phone,
+                    address: data.address,
+                    city: data.city,
+                    province: data.province,
+                    postalCode: data.postal_code,
+                    status: data.status,
+                });
+                console.log('Order details fetched:', data);
+            } catch (err) {
+                console.error('Error fetching session or order details:', err);
+            }
+        }
+
+        getOrder();
+    }, []);
 
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
@@ -38,19 +84,19 @@ export default function UploadPage() {
                         </h2>
                         <div className="flex justify-between">
                             <span className="font-medium">Order Number</span>
-                            <span>1234</span>
+                            <span>{orderSummary?.orderNumber}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="font-medium">Product Name</span>
-                            <span>Produk A</span>
+                            <span>{orderSummary?.productTitle}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="font-medium">Email</span>
-                            <span>emailcustomer@gmail.com</span>
+                            <span>{orderSummary?.email}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="font-medium">Jumlah foto yang harus diupload</span>
-                            <span>40</span>
+                            <span>{orderSummary?.totalPhoto}</span>
                         </div>
                     
                     </div>

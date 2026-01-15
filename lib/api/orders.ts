@@ -50,3 +50,8 @@ export async function getOrderDetails(orderNumber: string) {
     const response = await axios.get(`${API_URL}/orders/detail/${orderNumber}`);
     return response.data;
 }
+
+export async function getOrderSummary(orderNumber: string) {
+    const response = await axios.get(`${API_URL}/orders/summary/${orderNumber}`);
+    return response.data;
+}

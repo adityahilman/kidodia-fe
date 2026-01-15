@@ -21,25 +21,50 @@ export default function VerifyOtpPage() {
         const formData = new FormData(e.target as HTMLFormElement);
         const otpCode = formData.get('otpCode') as string;
 
-        await verifyOtp(orderNumber, otpCode)
-            .then((res) => {
+        // await verifyOtp(orderNumber, otpCode)
+        //     .then((res) => {
+        //         setOtpIsValid(true);
+        //         setShowMessage(true);
+        //         console.log('OTP verified:', res);
+        //         setTimeout(() => {
+        //             setShowMessage(false);
+        //             router.push(`/dashboard`);
+        //         }, 3000);
+        //     })
+        //     .catch((err) => {
+        //         setOtpIsInvalid(true);
+        //         setShowMessage(true);
+        //         setTimeout(() => {
+        //             setShowMessage(false);
+        //             setOtpIsInvalid(false);
+        //         }, 3000);
+        //         console.error('Error verifying OTP:', err);
+        //     });
+
+        try {
+            const res = await verifyOtp(orderNumber, otpCode);
+
+            if (!res.verified) {
+                throw new Error(res.message || 'OTP verification failed');
+            }
+
+            if (res.session_created && res.order_status === "PAID") {
                 setOtpIsValid(true);
                 setShowMessage(true);
-                console.log('OTP verified:', res);
                 setTimeout(() => {
                     setShowMessage(false);
                     router.push(`/dashboard`);
                 }, 3000);
-            })
-            .catch((err) => {
-                setOtpIsInvalid(true);
-                setShowMessage(true);
-                setTimeout(() => {
-                    setShowMessage(false);
-                    setOtpIsInvalid(false);
-                }, 3000);
-                console.error('Error verifying OTP:', err);
-            });
+            }
+        } catch (error) {
+            setOtpIsInvalid(true);
+            setShowMessage(true);
+            setTimeout(() => {
+                setShowMessage(false);
+                setOtpIsInvalid(false);
+            }, 3000);
+            console.error('Error verifying OTP:', error);
+        }
        
      
     }   

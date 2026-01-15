@@ -18,7 +18,17 @@ export async function verifyOtp(orderNumber: string, otpCode: string) {
     const response = await axios.post(`${API_URL}/auth/verify-otp`, {
         order_number: orderNumber,
         code: otpCode,
-    });
+    }, {
+        withCredentials: true,
+    }
+);
 
+    return response.data;
+}
+
+export async function getSession() {
+    const response = await axios.get(`${API_URL}/auth/session`, {
+        withCredentials: true,
+    });
     return response.data;
 }
