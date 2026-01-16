@@ -18,7 +18,6 @@ export default function ProductsListPage() {
       useEffect(() => {
         getProducts().then((data) => {
           setProducts(data)
-          console.log("Products:", data)
         })
       }, []);
     

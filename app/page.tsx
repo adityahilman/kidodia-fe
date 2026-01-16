@@ -26,7 +26,6 @@ export default function Home() {
   useEffect(() => {
     getProducts().then((data) => {
       setProducts(data)
-      console.log("Products:", data)
     })
   }, []);
 
