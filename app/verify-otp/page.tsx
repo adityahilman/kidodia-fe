@@ -58,20 +58,22 @@ function VerifyOtpContent() {
                 setShowMessage(false);
                 setOtpIsInvalid(false);
             }, 3000);
-            console.error('Error verifying OTP:', error);
+            if (process.env.NODE_ENV === 'development') {
+                console.error('Error verifying OTP:', error);
+            }
         }
        
      
     }   
 
-    const btnResend = () => {
-        console.log("Resend OTP");
-        // Handle resend OTP logic here
-        setShowMessageResend(true);
-        setTimeout(() => {
-            setShowMessageResend(false);
-        }, 3000);
-    }
+    // const btnResend = () => {
+    //     console.log("Resend OTP");
+    //     // Handle resend OTP logic here
+    //     setShowMessageResend(true);
+    //     setTimeout(() => {
+    //         setShowMessageResend(false);
+    //     }, 3000);
+    // }
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
             <Header />
@@ -106,14 +108,14 @@ function VerifyOtpContent() {
                         </div>
                     </form>
                     
-                    <div className="mt-6 text-center">
+                    {/* <div className="mt-6 text-center">
                         <button
                             className="text-sm text-gray-500 hover:text-black p-0 cursor-pointer hover:underline"
                             onClick={btnResend}
                         >
                             Belum menerima kode? Klik disini untuk kirim ulang.
                         </button>
-                    </div>
+                    </div> */}
                    
                 </div>
             </main>
@@ -177,7 +179,7 @@ function VerifyOtpContent() {
             </div>
             )}
 
-            {showMessageResend && (
+            {/* {showMessageResend && (
             <div className="fixed inset-0 z-40 flex items-start justify-center pt-20">
                 <div className="rounded-lg bg-emerald-100/50 border border-emerald-300 px-6 py-4 shadow-lg animate-fade-up">
                 <p className="text-sm font-medium">
@@ -185,7 +187,7 @@ function VerifyOtpContent() {
                 </p>
                 </div>
             </div>
-            )}
+            )} */}
 
 
 
