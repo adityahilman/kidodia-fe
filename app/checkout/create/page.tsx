@@ -30,8 +30,11 @@ function CreateCheckoutContent() {
         await sendOtp(email, orderNumber!)
             .then((res) => {
                 updateInitialOrder(orderNumber!, email, "OTP_SENT");
-                router.push(`/checkout/${orderNumber}/verify-otp`);
-                console.log('OTP sent:', res);
+                // router.push(`/checkout/${orderNumber}/verify-otp`);
+                router.push(`/verify-otp?orderNumber=${orderNumber}`);
+                if (process.env.NODE_ENV === 'development') {
+                    console.log('OTP sent successfully:', res);
+                }
             })
             .catch((err) => {
                 console.error('Error sending OTP:', err);
