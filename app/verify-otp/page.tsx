@@ -43,6 +43,14 @@ function VerifyOtpContent() {
                     router.push(`/dashboard`);
                 }, 3000);
             }
+            else if (res.order_status !== "PAID") {
+                setOtpIsValid(true);
+                setShowMessage(true);
+                setTimeout(() => {
+                    setShowMessage(false);
+                    router.push(`/checkout/${orderNumber}/address`);
+                }, 3000);
+            }
         } catch (error) {
             setOtpIsInvalid(true);
             setShowMessage(true);
