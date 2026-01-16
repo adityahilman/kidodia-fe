@@ -65,7 +65,7 @@ export default function DashboardPage() {
 
             <main className="flex flex-1 items-center justify-center px-4">
                 <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-sm border">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">
                         Order Summary
                     </h2>                   
                     <div className="space-y-2">
@@ -90,7 +90,7 @@ export default function DashboardPage() {
                             </div>
 
                             <div className="flex justify-between text-sm mt-2" >
-                                <p className="italic text-green-600">
+                                <p className=" text-green-700 font-semibold">
                                     {orderSummary?.totalPhoto} foto yang harus diupload
                                 </p>
                                
@@ -179,7 +179,7 @@ export default function DashboardPage() {
                                         <p className="text-sm text-red-600">
                                             ❌ Photo not uploaded
                                         </p>
-                                        <button className="mt-2 inline-flex items-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 w-full justify-center" onClick={btnUploadPhoto}>
+                                        <button className="mt-4 inline-flex items-center rounded bg-[#0095a0] px-3 py-2 text-sm font-medium text-white hover:bg-[#00796b] w-full justify-center cursor-pointer" onClick={btnUploadPhoto}>
                                             Upload photo
                                         </button>
                                     </>
