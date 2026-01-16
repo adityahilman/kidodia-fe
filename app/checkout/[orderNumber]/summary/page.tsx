@@ -81,6 +81,7 @@ export default function PaymentPage() {
     window.snap.pay(snapToken, {
       onSuccess: (result: any) => {
         console.log("SUCCESS", result);
+        router.push(`/checkout/${orderNumber}/thank-you`)
       },
       onPending: (result: any) => {
         console.log("PENDING", result);
