@@ -80,14 +80,23 @@ export default function PaymentPage() {
 
     window.snap.pay(snapToken, {
       onSuccess: (result: any) => {
-        console.log("SUCCESS", result);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("SUCCESS", result);
+        }
         router.push(`/checkout/${orderNumber}/thank-you`)
       },
       onPending: (result: any) => {
-        console.log("PENDING", result);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("PENDING", result);
+        }
+        router.push(`/`)
+
       },
       onError: (result: any) => {
-        console.log("ERROR", result);
+        if (process.env.NODE_ENV === 'development') {
+          console.log("ERROR", result);
+        }
+        router.push(`/`)
       },
     });
   };
