@@ -9,7 +9,6 @@ import { getOrderSummary } from "@/lib/api/orders";
 import { useRouter } from "next/navigation";
 import imagekitAuth from "@/lib/imagekit/auth";
 import { uploadToImageKit } from "@/lib/imagekit/upload";
-import { updateOrderAlbumTitle } from "@/lib/api/orders";
 import { createOrderImages } from "@/lib/api/images";
 
 type orderSummaryInterface = {
@@ -23,14 +22,15 @@ type orderSummaryInterface = {
     city: string
     province: string
     postalCode: string
-    status: string
+    status: string,
+    isPhotoUploaded: boolean
 }
 
 export default function UploadPage() {
     const router = useRouter();
     const [coverPreview, setCoverPreview] = useState<string | null>(null);
     const [photoCount, setPhotoCount] = useState(0);
-    const [orderSummary, setOrderSummary] = useState<orderSummaryInterface>();
+    const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null)
 
 
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +152,10 @@ export default function UploadPage() {
                     province: data.province,
                     postalCode: data.postal_code,
                     status: data.status,
+                    isPhotoUploaded: Boolean(data.is_photo_uploaded)
                 });
+
+
             } catch (err) {
                 if (process.env.NODE_ENV === 'development') {
                     console.error('Error fetching order summary:', err);
@@ -163,6 +166,13 @@ export default function UploadPage() {
 
         getOrder();
     }, []);
+
+    useEffect(() => {
+        console.log('Order Summary:', orderSummary?.isPhotoUploaded);
+        if (orderSummary?.isPhotoUploaded === true) {
+            router.push(`/dashboard`);
+        }
+    }, [orderSummary]);
 
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
