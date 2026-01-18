@@ -55,3 +55,10 @@ export async function getOrderSummary(orderNumber: string) {
     const response = await axios.get(`${API_URL}/orders/summary/${orderNumber}`);
     return response.data;
 }
+
+export async function updateOrderAlbumTitle(orderNumber: string, albumTitle: string) {
+    const response = await axios.patch(`${API_URL}/orders/${orderNumber}`, {
+        album_title: albumTitle
+    });
+    return response.data;
+}

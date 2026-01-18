@@ -23,6 +23,13 @@ function VerifyOtpContent() {
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('orderNumber') || '';
 
+    const order_status = [
+            "PAID",
+            "PROCESSING",
+            "SHIPPING",
+            "DELIVERED"
+        ]
+
     const btnSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
@@ -35,7 +42,8 @@ function VerifyOtpContent() {
                 throw new Error(res.message || 'OTP verification failed');
             }
 
-            if (res.session_created && res.order_status === "PAID") {
+
+            if (res.session_created && order_status.includes(res.order_status)) {
                 setOtpIsValid(true);
                 setShowMessage(true);
                 setTimeout(() => {
@@ -43,7 +51,8 @@ function VerifyOtpContent() {
                     router.push(`/dashboard`);
                 }, 3000);
             }
-            else if (res.order_status !== "PAID") {
+         
+            else if (!order_status.includes(res.order_status)) {
                 setOtpIsValid(true);
                 setShowMessage(true);
                 setTimeout(() => {

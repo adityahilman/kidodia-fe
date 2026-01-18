@@ -17,7 +17,8 @@ type orderSummaryInterface = {
     city: string
     province: string
     postalCode: string
-    status: string
+    status: string,
+    isPhotoUploaded?: boolean
 }
 
 export default function DashboardPage() {
@@ -48,6 +49,7 @@ export default function DashboardPage() {
                     province: data.province,
                     postalCode: data.postal_code,
                     status: data.status,
+                    isPhotoUploaded: data.is_photo_uploaded
                 });
                 console.log('Order details fetched:', data);
             } catch (err) {
@@ -174,7 +176,7 @@ export default function DashboardPage() {
                                     Photo Upload
                                 </p>
 
-                                {orderSummary?.status == "PAID" ? (
+                                {orderSummary?.isPhotoUploaded === true ? (
                                     <>
                                         <p className="text-sm text-red-600">
                                             ❌ Photo not uploaded

@@ -6,6 +6,11 @@ import Header from "@/components/header";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/api/auth";
 import { getOrderSummary } from "@/lib/api/orders";
+import { useRouter } from "next/navigation";
+import imagekitAuth from "@/lib/imagekit/auth";
+import { uploadToImageKit } from "@/lib/imagekit/upload";
+import { updateOrderAlbumTitle } from "@/lib/api/orders";
+import { createOrderImages } from "@/lib/api/images";
 
 type orderSummaryInterface = {
     orderNumber: string
@@ -22,9 +27,10 @@ type orderSummaryInterface = {
 }
 
 export default function UploadPage() {
+    const router = useRouter();
     const [coverPreview, setCoverPreview] = useState<string | null>(null);
     const [photoCount, setPhotoCount] = useState(0);
-    const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null);
+    const [orderSummary, setOrderSummary] = useState<orderSummaryInterface>();
 
 
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +40,104 @@ export default function UploadPage() {
         setCoverPreview(URL.createObjectURL(file));
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        const albumTitle = formData.get("albumTitle") as string;
+        const coverAlbum = formData.get("coverAlbum") as File;
+        const photoFiles = formData.getAll("photoFiles") as File[];
+
+        
+
+        try {
+            
+
+            let cover: {
+                image_url: string;
+                image_file_id: string;
+            } | null = null;
+
+            const photos: {
+                image_url: string;
+                image_file_id: string;
+            }[] = [];
+
+            /* ===============================
+            * 3. Upload cover
+            * =============================== */
+            if (coverAlbum && coverAlbum.size > 0) {
+                const authParams = await imagekitAuth()();
+                const res = await uploadToImageKit({
+                    auth: authParams,
+                    file: coverAlbum,
+                    fileName: coverAlbum.name,
+                    folder: `/kidodia/${orderSummary?.orderNumber}/covers`,
+                });
+
+                cover = {
+                    image_url: res.url!,
+                    image_file_id: res.fileId!,
+                };
+            }
+
+            /* ===============================
+            * 4. Upload photos (batched)
+            * =============================== */
+            const BATCH_SIZE = 5;
+
+            for (let i = 0; i < photoFiles.length; i += BATCH_SIZE) {
+                const batch = photoFiles.slice(i, i + BATCH_SIZE);
+
+                const results = await Promise.all(
+                    batch
+                        .filter(f => f && f.size > 0)
+                        .map(async (file) => {
+                            // IMPORTANT: request a fresh auth token per upload
+                            const authParams = await imagekitAuth()();
+                            return uploadToImageKit({
+                                auth: authParams,
+                                file,
+                                fileName: file.name,
+                                folder: `/kidodia/${orderSummary?.orderNumber}/photos`,
+                            });
+                        })
+                );
+
+                results.forEach(res => {
+                    photos.push({
+                        image_url: res.url!,
+                        image_file_id: res.fileId!,
+                    });
+                });
+            }
+
+            // update album title 
+            
+            await createOrderImages(orderSummary!.orderNumber, albumTitle, cover, photos)
+                .then(async () => {
+                    console.log('Order images created successfully');
+                    // Redirect to dashboard after successful upload
+                    router.push(`/dashboard`);
+                })
+                .catch((err) => {
+                    throw new Error('Failed to create order images: ' + err.message);
+                });
+
+        } catch (error) {
+            console.error("Upload failed:", error);
+        }
+    }
+
+
     useEffect(() => {
         async function getOrder() {
             try {
                 const session = await getSession();
+
                 const orderNumber = session.order_number;
-                console.log('Session data:', session);
 
                 const data = await getOrderSummary(orderNumber);
                 setOrderSummary({
@@ -55,9 +153,11 @@ export default function UploadPage() {
                     postalCode: data.postal_code,
                     status: data.status,
                 });
-                console.log('Order details fetched:', data);
             } catch (err) {
-                console.error('Error fetching session or order details:', err);
+                if (process.env.NODE_ENV === 'development') {
+                    console.error('Error fetching order summary:', err);
+                }
+                router.push(`/order`);
             }
         }
 
@@ -94,14 +194,14 @@ export default function UploadPage() {
                             <span className="font-medium">Email</span>
                             <span>{orderSummary?.email}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between text-green-700 font-semibold">
                             <span className="font-medium">Jumlah foto yang harus diupload</span>
                             <span>{orderSummary?.totalPhoto}</span>
                         </div>
                     
                     </div>
 
-                    <form id="form-upload-photo" className="mt-10">
+                    <form id="form-upload-photo" className="mt-10" onSubmit={handleSubmit}>
                         <h2 className="text-base font-semibold">Detail Album</h2>
                         <div className="space-y-6 text-sm mt-2">
                             
@@ -110,6 +210,7 @@ export default function UploadPage() {
                                 <label className="font-medium">Judul Album</label>
                                 <input
                                     type="text"
+                                    name="albumTitle"
                                     className="w-full rounded-md border px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-[#0095a0]"
                                     placeholder="Masukkan judul album"
                                 />
@@ -128,7 +229,7 @@ export default function UploadPage() {
                                             />
                                         ) : (
                                             <>
-                                                <p className="text-gray-500">
+                                                <p className="text-gray-600">
                                                     Klik untuk upload cover
                                                 </p>
                                                 <p className="text-xs text-gray-400 mt-1">
@@ -138,6 +239,7 @@ export default function UploadPage() {
                                         )}
                                         <input
                                             type="file"
+                                            name="coverAlbum"
                                             accept="image/*"
                                             className="hidden"
                                             onChange={handleCoverChange}
@@ -151,13 +253,14 @@ export default function UploadPage() {
 
                                 <label className="mt-2 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 text-center hover:bg-gray-50 transition">
                                     <p className="text-gray-600">
-                                        Klik untuk upload banyak foto
+                                        Klik untuk upload foto
                                     </p>
                                     <p className="text-xs text-gray-400 mt-1">
-                                        Minimal 40 foto
+                                        JPG / PNG
                                     </p>
                                     <input
                                         type="file"
+                                        name="photoFiles"
                                         multiple
                                         accept="image/*"
                                         className="hidden"
@@ -170,13 +273,13 @@ export default function UploadPage() {
                                     <div className="mt-3 rounded-md bg-gray-50 p-3 text-sm">
                                         <div className="flex justify-between">
                                             <span>{photoCount} foto dipilih</span>
-                                            {photoCount >= 40 ? (
+                                            {photoCount == (orderSummary?.totalPhoto ?? 0) ? (
                                                 <span className="text-green-600 font-medium">
                                                     ✔ Siap diupload
                                                 </span>
                                             ) : (
                                                 <span className="text-red-500">
-                                                    Kurang {40 - photoCount} foto
+                                                    Kurang {(orderSummary?.totalPhoto ?? 0) - photoCount} foto
                                                 </span>
                                             )}
                                         </div>
@@ -189,7 +292,7 @@ export default function UploadPage() {
 
                             <Button
                                 id="btn-submit-upload-photo"
-                                disabled={photoCount < 40}
+                                disabled={photoCount != orderSummary?.totalPhoto}
                                 className="w-full mt-6 bg-[#0095a0] hover:bg-[#00796b] rounded cursor-pointer"
                             >
                                 Upload
