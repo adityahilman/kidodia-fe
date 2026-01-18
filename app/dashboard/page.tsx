@@ -91,12 +91,17 @@ export default function DashboardPage() {
 
                             </div>
 
-                            <div className="flex justify-between text-sm mt-2" >
+                            {orderSummary?.isPhotoUploaded !== true && (
+                                <div className="flex justify-between text-sm mt-2" >
                                 <p className=" text-green-700 font-semibold">
                                     {orderSummary?.totalPhoto} foto yang harus diupload
                                 </p>
                                
                             </div>
+
+                            )}
+
+                            
                             
 
                         </section>
