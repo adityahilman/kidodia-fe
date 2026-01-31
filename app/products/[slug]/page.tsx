@@ -74,9 +74,9 @@ export default function ProductDetailPage() {
               {product?.main_title || "Photobook Premium"}
             </h1>
 
-            <p className="mt-3 text-gray-500 max-w-md">
+            <h2 className="mt-3 text-gray-500 max-w-md">
               {product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium."}
-            </p>
+            </h2>
 
             {product?.specifications && (
               <ul className="mt-2 mb-2 text-sm text-gray-700 list-disc list-inside">

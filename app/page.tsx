@@ -133,13 +133,13 @@ export default function Home() {
 
           <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {[
-              ["Pilih Produk", "Tentukan photobook favoritmu"],
-              ["Checkout", "Bayar & konfirmasi pesanan"],
-              ["Upload Foto", "Upload foto terbaikmu"],
-              ["Produksi & Kirim", "Dicetak & dikirim ke rumah"],
-            ].map(([title, desc], i) => (
-              <div key={i}>
-                <img src="https://placehold.co/180x180" className="mx-auto" />
+              ["Pilih Photobook", "Pilih photobook yang sesuai dengan kebutuhanmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/select-product.png`],
+              ["Checkout", "Bayar & konfirmasi pesanan", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/checkout.png`],
+              ["Upload Foto", "Upload foto terbaikmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/upload-photos.png`],
+              ["Produksi & Kirim", "Dicetak & dikirim ke rumah", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/package-done.png`],
+            ].map(([title, desc, image], i) => (
+                <div key={i}>
+                <img src={image || "https://placehold.co/180x180"} className="mx-auto h-20 w-20" />
                 <h3 className="mt-4 font-semibold">{title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{desc}</p>
               </div>
@@ -253,6 +253,14 @@ export default function Home() {
               </summary>
               <p className="mt-2 text-sm text-gray-600">
                 Rata-rata 7–14 hari kerja.
+              </p>
+            </details>
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Berapa lama batas waktu upload foto setelah order?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Batas waktu upload foto adalah 30 hari setelah melakukan pemesanan.
               </p>
             </details>
             <details className="rounded-xl bg-white p-4 shadow-sm">
