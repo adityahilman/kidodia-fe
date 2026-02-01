@@ -10,23 +10,40 @@ export default function ThankyouPage() {
     const router = useRouter();
     const { orderNumber } = useParams<{ orderNumber: string }>();
     const [showMessage, setShowMessage] = useState(false);
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         async function checkOrderStatus() {
             if (orderNumber) {
-                const data = await getOrderDetails(orderNumber);
+                try {
+                    const data = await getOrderDetails(orderNumber);
 
-                if (data.status === 'PAID') {
-                    setShowMessage(true);
+                    if (!data) {
+                        setNotFound(true);
+                        return;
+                    }
+
+                    if (data.status === 'PAID') {
+                        setShowMessage(true);
+                        setTimeout(() => {
+                            setShowMessage(false);
+                            router.push(`/order`);
+                        }, 5000);
+                    } else {
+                        if (process.env.NODE_ENV === 'development') {
+                            console.log('Order not paid yet, redirecting to summary page.');
+                        }
+                        router.push(`/checkout/${orderNumber}/summary`);
+                    }
+                } catch (error) {
+                    setNotFound(true);
                     setTimeout(() => {
-                        setShowMessage(false);
-                        router.push(`/order`);
+                        router.push(`/`)
                     }, 5000);
-                } else {
-                    console.log('Order not paid yet, redirecting to summary page.');
-                    router.push(`/checkout/${orderNumber}/summary`);
+                    if (process.env.NODE_ENV === 'development') {
+                        console.error('Error fetching order details:', error);
+                    }
                 }
-
             }
         }
         checkOrderStatus();
@@ -37,8 +54,36 @@ export default function ThankyouPage() {
             <Header />
 
             <main className="flex flex-1 items-center justify-center px-4">
-                <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-md border text-center">
-                    {showMessage ? (
+                <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-md border text-center mx-auto">
+                    {notFound ? (
+                        <div className="space-y-4">
+                            {/* Error Icon */}
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+                                <svg
+                                    className="h-8 w-8 text-red-600"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </div>
+                            <h2 className="text-2xl font-semibold text-gray-900">
+                                Order Tidak Ditemukan
+                            </h2>
+                            <p className="text-gray-600 leading-relaxed">
+                                Maaf, kami tidak dapat menemukan order dengan nomor tersebut.
+                            </p>
+                            <p className="text-xs text-gray-400 animate-pulse">
+                                Kamu akan diarahkan ke halaman utama dalam beberapa detik.
+                            </p>
+                        </div>
+                    ) : showMessage ? (
                         <div className="space-y-4">
                             {/* Success Icon */}
                             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
