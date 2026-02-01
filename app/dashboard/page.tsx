@@ -96,11 +96,13 @@ export default function DashboardPage() {
                                 </span>
 
                             </div>
+                            {showStatus && (
                             <div>
                                 <p className="text-xs text-gray-600 italic">
                                     Mohon menunggu, pesanan Anda sedang diproses oleh tim kami.
                                 </p>
                             </div>
+                            )}
 
                             {orderSummary?.isPhotoUploaded !== true && (
                                 <div className="flex justify-between text-sm mt-2" >

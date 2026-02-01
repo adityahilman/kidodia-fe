@@ -19,7 +19,7 @@ function VerifyOtpContent() {
     const [otpIsValid, setOtpIsValid] = useState(false);
     const [otpIsInvalid, setOtpIsInvalid] = useState(false);
     const [showMessage, setShowMessage] = useState(false);
-    const [showMessageResend, setShowMessageResend] = useState(false);
+    // const [showMessageResend, setShowMessageResend] = useState(false);
     const searchParams = useSearchParams();
     const orderNumber = searchParams.get('orderNumber') || '';
 

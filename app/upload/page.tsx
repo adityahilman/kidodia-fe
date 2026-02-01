@@ -32,7 +32,8 @@ export default function UploadPage() {
     const [photoCount, setPhotoCount] = useState(0);
     const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null);
     const [isUploading, setIsUploading] = useState(false);
-    const [showStatus, setShowStatus] = useState<boolean>(false);
+    // const [showStatus, setShowStatus] = useState<boolean>(false);
+    const [uploadProgress, setUploadProgress] = useState<number>(0);
 
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -55,9 +56,13 @@ export default function UploadPage() {
 
         try {
             setIsUploading(true);
+            setUploadProgress(0);
 
             let cover: { image_url: string; image_file_id: string } | null = null;
             const photos: { image_url: string; image_file_id: string }[] = [];
+
+            let totalFiles = photoFiles.length + (coverAlbum && coverAlbum.size > 0 ? 1 : 0);
+            let uploadedFiles = 0;
 
             if (coverAlbum && coverAlbum.size > 0) {
                 const authParams = await imagekitAuth()();
@@ -69,6 +74,8 @@ export default function UploadPage() {
                 });
 
                 cover = { image_url: res.url!, image_file_id: res.fileId! };
+                uploadedFiles++;
+                setUploadProgress(Math.round((uploadedFiles / totalFiles) * 100));
             }
 
             const BATCH_SIZE = 5;
@@ -81,12 +88,15 @@ export default function UploadPage() {
                         .filter(f => f && f.size > 0)
                         .map(async (file) => {
                             const authParams = await imagekitAuth()();
-                            return uploadToImageKit({
+                            const res = await uploadToImageKit({
                                 auth: authParams,
                                 file,
                                 fileName: file.name,
                                 folder: `/kidodia/${orderSummary.orderNumber}/photos`,
                             });
+                            uploadedFiles++;
+                            setUploadProgress(Math.round((uploadedFiles / totalFiles) * 100));
+                            return res;
                         })
                 );
 
@@ -101,6 +111,7 @@ export default function UploadPage() {
             console.error("Upload failed:", error);
         } finally {
             setIsUploading(false);
+            setUploadProgress(0);
         }
     };
 
@@ -145,12 +156,12 @@ export default function UploadPage() {
             console.log('Photo is uploaded:', orderSummary?.isPhotoUploaded);
         }
         
-        if (orderSummary?.isPhotoUploaded === true) {
-            setShowStatus(true);
-            setTimeout(() => {
-                router.push(`/dashboard`);
-            }, 4000);
-        }
+        // if (orderSummary?.isPhotoUploaded === true) {
+        //     setShowStatus(true);
+        //     setTimeout(() => {
+        //         router.push(`/dashboard`);
+        //     }, 4000);
+        // }
     }, [orderSummary]);
 
     return (
@@ -299,10 +310,19 @@ export default function UploadPage() {
                                 </p>
                             </div>
                         </div>
+                        <div className="w-full">
+                            <div className="relative h-3 w-full rounded bg-gray-200">
+                                <div
+                                    className="absolute left-0 top-0 h-3 rounded bg-[#0095a0] transition-all"
+                                    style={{ width: `${uploadProgress}%` }}
+                                />
+                            </div>
+                            <div className="mt-1 text-right text-xs text-gray-600">{uploadProgress}%</div>
+                        </div>
                     </div>
                 </div>
             )}
-            <div
+            {/* <div
                 className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm"
                 id="upload-status-overlay"
                 aria-live="polite"
@@ -321,7 +341,7 @@ export default function UploadPage() {
                     </div>
                 )}
 
-            </div>
+            </div> */}
 
             <Footer />
         </div>
