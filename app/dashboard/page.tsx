@@ -24,6 +24,7 @@ type orderSummaryInterface = {
 export default function DashboardPage() {
     const router = useRouter()
     const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null)
+    const [showStatus, setShowStatus] = useState<boolean>(false)
 
     const btnUploadPhoto = () => {
         router.push(`/upload`)
@@ -60,6 +61,11 @@ export default function DashboardPage() {
         getOrder();
     }, []);
 
+    useEffect(() => {
+        if (orderSummary?.status === 'PROCESSING') {
+            setShowStatus(true);
+        }
+    }, [orderSummary]);
 
     return (
         <div className="flex min-h-screen flex-col bg-gray-50">
@@ -89,6 +95,11 @@ export default function DashboardPage() {
                                     {orderSummary?.status}
                                 </span>
 
+                            </div>
+                            <div>
+                                <p className="text-xs text-gray-600 italic">
+                                    Mohon menunggu, pesanan Anda sedang diproses oleh tim kami.
+                                </p>
                             </div>
 
                             {orderSummary?.isPhotoUploaded !== true && (
