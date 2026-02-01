@@ -212,6 +212,15 @@ export default function DashboardPage() {
                             </section>
 
                     </div>
+                    <div className="mt-2">
+                        
+                        <button
+                            className="mt-2 inline-flex items-center rounded bg-[#0095a0] px-3 py-2 text-sm font-medium text-white hover:bg-[#00796b] w-full justify-center cursor-pointer"
+                            onClick={() => router.push('/order')}
+                        >
+                            Cek Nomor Pesanan Lainnya
+                        </button>
+                    </div>
                 
                 </div>
             </main>
