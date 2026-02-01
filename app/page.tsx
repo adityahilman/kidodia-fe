@@ -134,9 +134,9 @@ export default function Home() {
           <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {[
               ["Pilih Photobook", "Pilih photobook yang sesuai dengan kebutuhanmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/select-product.png`],
-              ["Checkout", "Bayar & konfirmasi pesanan", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/checkout.png`],
-              ["Upload Foto", "Upload foto terbaikmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/upload-photos.png`],
-              ["Produksi & Kirim", "Dicetak & dikirim ke rumah", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/package-done.png`],
+              ["Checkout", "Selesaikan pembayaran dengan cepat dan aman, kemudian pesananmu langsung kami proses", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/checkout.png`],
+              ["Upload Foto", "Unggah foto-foto terbaikmu, biarkan kami mengubahnya jadi kenangan yang indah", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/upload-photos.png`],
+              ["Produksi & Kirim", "Photobook dicetak dengan penuh perhatian lalu dikirim hingga ke alamatmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/package-done.png`],
             ].map(([title, desc, image], i) => (
                 <div key={i}>
                 <img src={image || "https://placehold.co/180x180"} className="mx-auto h-20 w-20" />
