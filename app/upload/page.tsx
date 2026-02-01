@@ -32,6 +32,7 @@ export default function UploadPage() {
     const [photoCount, setPhotoCount] = useState(0);
     const [orderSummary, setOrderSummary] = useState<orderSummaryInterface | null>(null);
     const [isUploading, setIsUploading] = useState(false);
+    const [showStatus, setShowStatus] = useState<boolean>(false);
 
     const handleCoverChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -140,14 +141,20 @@ export default function UploadPage() {
     }, []);
 
     useEffect(() => {
-        console.log('Order Summary:', orderSummary?.isPhotoUploaded);
+        if (process.env.NODE_ENV === 'development') {
+            console.log('Photo is uploaded:', orderSummary?.isPhotoUploaded);
+        }
+        
         if (orderSummary?.isPhotoUploaded === true) {
-            router.push(`/dashboard`);
+            setShowStatus(true);
+            setTimeout(() => {
+                router.push(`/dashboard`);
+            }, 4000);
         }
     }, [orderSummary]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        <div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
             <Header />
 
             <main className="mx-auto w-full max-w-6xl px-4 py-10">
@@ -295,6 +302,26 @@ export default function UploadPage() {
                     </div>
                 </div>
             )}
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 px-4 backdrop-blur-sm"
+                id="upload-status-overlay"
+                aria-live="polite"
+                aria-busy="true">
+                {showStatus && (
+                    <div className="w-full max-w-md rounded-2xl border bg-white p-6 shadow-xl">
+                        <div className="flex items-start gap-3">
+                            <div className="mt-1 h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-[#0095a0]" />
+                            <div className="space-y-1">
+                                <p className="text-sm font-semibold text-gray-900">Foto berhasil diupload!</p>
+                                <p className="text-sm text-gray-600">
+                                    Kamu akan diarahkan ke dashboard dalam beberapa detik.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+            </div>
 
             <Footer />
         </div>
