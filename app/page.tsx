@@ -14,6 +14,7 @@ import Footer from "@/components/footer"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { getProducts } from "@/lib/api/products"
+import LazySection from "@/components/LazySection"
 
 export default function Home() {
   const router = useRouter()
@@ -69,62 +70,68 @@ export default function Home() {
       </section>
 
       {/* ================= SOCIAL PROOF ================= */}
-      <section className="py-20 bg-stone-50 text-center">
-        <div className="container mx-auto max-w-4xl px-4">
-          <h2 className="text-2xl font-semibold">
-            Dipercaya untuk Mengabadikan Banyak Momen Berharga
-          </h2>
-          <p className="mt-3 text-gray-600">
-            Ribuan pelanggan di Indonesia mempercayakan kenangan mereka ke Kidodia.
-          </p>
+      <LazySection animation="fade-up">
+      
+        <section className="py-20 bg-stone-50 text-center">
+          <div className="container mx-auto max-w-4xl px-4">
+            <h2 className="text-2xl font-semibold">
+              Dipercaya untuk Mengabadikan Banyak Momen Berharga
+            </h2>
+            <p className="mt-3 text-gray-600">
+              Ribuan pelanggan di Indonesia mempercayakan kenangan mereka ke Kidodia.
+            </p>
 
-          <Carousel plugins={[Autoplay({ delay: 2500 })]} className="mt-12">
-            <CarouselContent className="gap-6">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
-                  <img
-                    src={`https://placehold.co/220x360?text=Review+${item}`}
-                    className="mx-auto rounded-lg shadow-md"
-                  />
-                  <p className="mt-2 text-sm text-gray-500">
-                    Customer Review
-                  </p>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselNext />
-            <CarouselPrevious />
-          </Carousel>
-        </div>
-      </section>
+            <Carousel plugins={[Autoplay({ delay: 2500 })]} className="mt-12">
+              <CarouselContent className="gap-6">
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                  <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
+                    <img
+                      src={`https://placehold.co/220x360?text=Review+${item}`}
+                      className="mx-auto rounded-lg shadow-md"
+                    />
+                    <p className="mt-2 text-sm text-gray-500">
+                      Customer Review
+                    </p>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselNext />
+              <CarouselPrevious />
+            </Carousel>
+          </div>
+        </section>
+      </LazySection>
 
       {/* ================= WHY KIDODIA ================= */}
-      <section className="bg-gray-100 py-20">
-        <div className="container mx-auto max-w-6xl px-4 text-center">
-          <h2 className="text-2xl font-semibold">
-            Kenanganmu Layak Dicetak dengan Baik
-          </h2>
-          <p className="mt-2 text-gray-600">
-            Semua proses dibuat simpel, cepat, dan berkualitas.
-          </p>
+      <LazySection animation="fade-up">
+        <section className="bg-gray-100 py-20">
+          <div className="container mx-auto max-w-6xl px-4 text-center">
+            <h2 className="text-2xl font-semibold">
+              Kenanganmu Layak Dicetak dengan Baik
+            </h2>
+            <p className="mt-2 text-gray-600">
+              Semua proses dibuat simpel, cepat, dan berkualitas.
+            </p>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Upload dari HP", "Tanpa ribet, langsung dari handphone"],
-              ["Desain Rapi", "Layout elegan untuk semua momen"],
-              ["Kualitas Premium", "Warna tajam & kertas tebal"],
-              ["Kirim ke Rumah", "Pengiriman ke seluruh Indonesia"],
-            ].map(([title, desc]) => (
-              <div key={title} className="rounded-xl bg-white p-6 shadow-sm">
-                <h3 className="font-semibold">{title}</h3>
-                <p className="mt-2 text-sm text-gray-600">{desc}</p>
-              </div>
-            ))}
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                ["Upload dari HP", "Tanpa ribet, langsung dari handphone"],
+                ["Desain Rapi", "Layout elegan untuk semua momen"],
+                ["Kualitas Premium", "Warna tajam & kertas tebal"],
+                ["Kirim ke Rumah", "Pengiriman ke seluruh Indonesia"],
+              ].map(([title, desc]) => (
+                <div key={title} className="rounded-xl bg-white p-6 shadow-sm">
+                  <h3 className="font-semibold">{title}</h3>
+                  <p className="mt-2 text-sm text-gray-600">{desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* ================= ORDER FLOW ================= */}
+      <LazySection animation="fade-up">
       <section className="py-20 text-center">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-2xl font-semibold">
@@ -147,34 +154,38 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </LazySection>
 
       {/* ================= PRODUCT KNOWLEDGE ================= */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto max-w-6xl px-4 space-y-16">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <img src="https://placehold.co/600x400" className="rounded-xl" />
-            <div>
-              <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
-              <p className="mt-3 text-gray-600">
-                Menggunakan bahan berkualitas tinggi agar kenanganmu awet
-                dan tampil maksimal.
-              </p>
+      <LazySection animation="fade-up">
+        <section className="py-20 bg-white">
+          <div className="container mx-auto max-w-6xl px-4 space-y-16">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <img src="https://placehold.co/600x400" className="rounded-xl" />
+              <div>
+                <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
+                <p className="mt-3 text-gray-600">
+                  Menggunakan bahan berkualitas tinggi agar kenanganmu awet
+                  dan tampil maksimal.
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-xl font-semibold">Cover Elegan</h2>
-              <p className="mt-3 text-gray-600">
-                Desain cover modern yang cocok untuk semua momen.
-              </p>
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <h2 className="text-xl font-semibold">Cover Elegan</h2>
+                <p className="mt-3 text-gray-600">
+                  Desain cover modern yang cocok untuk semua momen.
+                </p>
+              </div>
+              <img src="https://placehold.co/600x400" className="rounded-xl" />
             </div>
-            <img src="https://placehold.co/600x400" className="rounded-xl" />
           </div>
-        </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* ================= PRODUCT LIST ================= */}
+      <LazySection animation="fade-up">
       <section className="py-20">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="mb-10 text-center text-2xl font-semibold">
@@ -222,8 +233,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </LazySection>
 
       {/* ================= FAQ ================= */}
+      <LazySection animation="fade-up">
       <section className="bg-gray-100 py-20">
         <div className="mx-auto max-w-4xl px-4">
           <h2 className="mb-10 text-center text-2xl font-semibold">
@@ -274,6 +287,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </LazySection>
 
       <Footer />
     </div>
