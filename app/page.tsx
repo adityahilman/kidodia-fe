@@ -44,7 +44,7 @@ export default function Home() {
                   <img
                     src={`https://placehold.co/1440x420?text=Banner+${item}`}
                     alt={`Banner ${item}`}
-                    className="h-60 md:h-95 w-full object-cover"
+                    className="h-[40vw] min-h-40 max-h-80 md:h-95 w-full object-cover"
                   />
                 </a>
               </CarouselItem>
@@ -157,33 +157,35 @@ export default function Home() {
       </LazySection>
 
       {/* ================= PRODUCT KNOWLEDGE ================= */}
-      <LazySection animation="fade-up">
-        <section className="py-20 bg-white">
-          <div className="container mx-auto max-w-6xl px-4 space-y-16">
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              <img src="https://placehold.co/600x400" className="rounded-xl" />
-              <div>
-                <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
-                <p className="mt-3 text-gray-600">
-                  Menggunakan bahan berkualitas tinggi agar kenanganmu awet
-                  dan tampil maksimal.
-                </p>
-              </div>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              <div>
-                <h2 className="text-xl font-semibold">Cover Elegan</h2>
-                <p className="mt-3 text-gray-600">
-                  Desain cover modern yang cocok untuk semua momen.
-                </p>
-              </div>
-              <img src="https://placehold.co/600x400" className="rounded-xl" />
+      <section className="py-20 bg-white">
+        <div className="container mx-auto max-w-6xl px-4 space-y-16">
+          <LazySection animation="slide-right">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <img src="https://placehold.co/600x400" className="rounded-xl" />
+            <div>
+              <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
+              <p className="mt-3 text-gray-600">
+                Menggunakan bahan berkualitas tinggi agar kenanganmu awet
+                dan tampil maksimal.
+              </p>
             </div>
           </div>
-        </section>
-      </LazySection>
+          </LazySection>
+          <LazySection animation="slide-left">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-xl font-semibold">Cover Elegan</h2>
+              <p className="mt-3 text-gray-600">
+                Desain cover modern yang cocok untuk semua momen.
+              </p>
+            </div>
+            <img src="https://placehold.co/600x400" className="rounded-xl" />
+          </div>
+          </LazySection>
 
+        </div>
+      </section>
+      
       {/* ================= PRODUCT LIST ================= */}
       <LazySection animation="fade-up">
       <section className="py-20">
