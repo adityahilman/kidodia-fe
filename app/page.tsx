@@ -69,8 +69,6 @@ export default async function Home() {
       </section>
 
       {/* ================= SOCIAL PROOF ================= */}
-     
-      
         <section className="py-20 bg-stone-50 text-center">
           
           <div className="container mx-auto max-w-4xl px-4">

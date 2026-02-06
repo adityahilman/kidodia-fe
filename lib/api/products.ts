@@ -8,6 +8,7 @@ export async function getProducts() {
 }
 
 export async function getProductBySlug(slug: string) {
+    console.log("Fetching product with slug:", slug);
     const response = await axios.get(`${API_URL}/products/${slug}`);
     return response.data;
 }

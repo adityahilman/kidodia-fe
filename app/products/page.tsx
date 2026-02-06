@@ -1,25 +1,18 @@
-'use client';
 
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { getProducts } from "@/lib/api/products";
+import Link from "next/link";
 
-export default function ProductsListPage() {
-    const router = useRouter()
-    const [products, setProducts] = useState<any[]>([])
-    
-      const btnProductDetail = (id: number) => {
-        router.push(`/products/${id}`)
-      }
-    
-      useEffect(() => {
-        getProducts().then((data) => {
-          setProducts(data)
-        })
-      }, []);
+export const metadata = {
+    title: "Daftar Produk",
+    description: "Berbagai macam produk photobook berkualitas dari Kidodia.",
+};
+
+export default async function ProductsListPage() {
+
+    const products = await getProducts();
     
     return (
         <div>
@@ -34,7 +27,11 @@ export default function ProductsListPage() {
                     {products
                     .filter((product: any) => product.is_active) // Only show active products
                     .map((product: any) => (
-                        <div key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer" onClick={() => btnProductDetail(product.slug)}>
+                        <Link
+                            key={product.slug}
+                            href={`/products/${product.slug}`}
+                            className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer block"
+                        >
                         <img
                             src={product.image_main_url}
                             className="mb-3 rounded-md"
@@ -46,7 +43,7 @@ export default function ProductsListPage() {
                         </p>
                         <div className="mb-3">
                             {product.discount_amount > 0 ? (
-                            <div>
+                            <div className="flex flex-col">
                                 <span className="text-gray-400 line-through mr-2">
                                 Rp{product.price.toLocaleString("id-ID")}
                                 </span>
@@ -62,11 +59,10 @@ export default function ProductsListPage() {
                         </div>
                         <Button
                             className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
-                            onClick={() => btnProductDetail(product.slug)}
                         >
                             Lihat Detail
                         </Button>
-                        </div>
+                        </Link>
                     ))}
                 </div>
                 </div>

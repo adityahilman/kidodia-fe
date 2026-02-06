@@ -1,49 +1,30 @@
-'use client'
-
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { Button } from "@/components/ui/button";
-import { useParams, useRouter } from "next/navigation";
+
 import { getProductBySlug } from "@/lib/api/products";
-import { useState, useEffect } from "react";
-import { createInitialOrder } from "@/lib/api/orders";
 
-function generateOrderId() {
-  const date = new Date();
-  const dateStr = date
-    .toISOString()
-    .slice(0, 10)
-    .replace(/-/g, "");
-  const randomStr = Math.floor(1000 + Math.random() * 900000);
-  return `PB-${dateStr}-${randomStr}`;
-}
-
-export default function ProductDetailPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const router = useRouter();
-  const [product, setProduct] = useState<any>(null);
-
-  useEffect(() => {
-    async function fetchProduct() {
-      const data = await getProductBySlug(slug);
-      setProduct(data);
-    }
-    fetchProduct();
-  }, [slug]);
+import OrderButtonComponent from "@/components/ButtonOrder";
 
 
-  const handleOrder = async () => {
-    const orderId = generateOrderId();
-    await createInitialOrder(orderId, slug)
-      .then((res) => {
-          console.log('Initial order created:', res);
-          router.push(`/checkout/create?orderNumber=${orderId}&product=${slug}`);
-      })
-      .catch((err) => {
-          console.error('Error creating initial order:', err);
-      });
-    
-  };
+// export async function generateMetadata({ params }: { params: { slug: string } }) {
+//   console.log("Generating metadata for slug:", params.slug);
+//   const product = await getProductBySlug(params.slug);
+//   return {
+//     title: product?.main_title || "Photobook Premium",
+//     description: product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium.",
+//     openGraph: {
+//       title: product?.main_title || "Photobook Premium",
+//       description: product?.main_description || "",
+//       images: [product?.image_main_url || `https://placehold.co/800x600?text=${params.slug}`],
+//     },
+//   };
+// }
+
+export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
+  console.log("Rendering product detail page for slug:", params.slug);
+  const resolvedParams = await params;
+  const product = await getProductBySlug(resolvedParams.slug);
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -62,7 +43,7 @@ export default function ProductDetailPage() {
             ) : null}
 
             <img
-              src={product?.image_main_url || `https://placehold.co/800x600?text=${slug}`}
+              src={product?.image_main_url || `https://placehold.co/800x600?text=${params.slug}`}
               alt={product?.main_title || "Photobook Preview"}
               className="w-full rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
             />
@@ -104,12 +85,12 @@ export default function ProductDetailPage() {
                 )}
               </div>
 
-              <Button
-                onClick={handleOrder}
+              <OrderButtonComponent
+                slug={resolvedParams.slug}
                 className="mt-6 w-full rounded py-6 text-lg font-semibold bg-[#0095a0] hover:bg-[#2f4858] transition"
               >
                 Pesan Sekarang
-              </Button>
+              </OrderButtonComponent>
 
               <p className="mt-3 text-center text-sm text-gray-500">
                 * Proses mudah, cukup dari HP
@@ -126,7 +107,7 @@ export default function ProductDetailPage() {
           {/* Cover Detail */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <img
-              src={product?.image_secondary_url || `https://placehold.co/800x600?text=${slug}`}
+              src={product?.image_secondary_url || `https://placehold.co/800x600?text=${params.slug}`}
               alt="Cover Detail"
               className="rounded-2xl shadow-md"
             />
@@ -151,7 +132,7 @@ export default function ProductDetailPage() {
               </p>
             </div>
             <img
-              src={product?.image_tertiary_url || `https://placehold.co/800x600?text=${slug}`}
+              src={product?.image_tertiary_url || `https://placehold.co/800x600?text=${params.slug}`}
               alt="Printing Quality"
               className="rounded-2xl shadow-md order-1 lg:order-2"
             />
@@ -159,12 +140,12 @@ export default function ProductDetailPage() {
 
           {/* CTA Again */}
           <div className="text-center">
-            <Button
-              onClick={handleOrder}
+            <OrderButtonComponent
+              slug={resolvedParams.slug}
               className="px-14 py-7 text-lg font-semibold rounded bg-[#0095a0] hover:bg-[#2f4858] transition"
             >
               Pesan Photobook Sekarang
-            </Button>
+            </OrderButtonComponent>
 
             <div className="mt-6 flex justify-center gap-6 text-sm text-gray-500">
               <span>✔ Cetak Premium</span>

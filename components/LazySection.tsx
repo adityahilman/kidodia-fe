@@ -6,18 +6,16 @@ import clsx from "clsx"
 
 type Props = {
   children: ReactNode
-  fallback?: ReactNode
   animation?: "fade-up" | "fade-in" | "slide-left" | "slide-right"
 }
 
 export default function LazySection({
   children,
-  fallback,
   animation = "fade-up",
 }: Props) {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    rootMargin: "-50px",
+    rootMargin: "0px",
     threshold: 0.15,
   })
 
