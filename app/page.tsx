@@ -1,8 +1,5 @@
-'use client'
-
-import Autoplay from "embla-carousel-autoplay"
+import CarouselWithAutoplay from "@/components/carousel"
 import {
-  Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
@@ -11,24 +8,23 @@ import {
 import { Button } from "@/components/ui/button"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
 import { getProducts } from "@/lib/api/products"
 import LazySection from "@/components/LazySection"
+import Link from "next/link"
 
-export default function Home() {
-  const router = useRouter()
-  const [products, setProducts] = useState<any[]>([])
+export const metadata = {
+  title: "Cetak Photobook untuk Semua Momen Bahagia | Kidodia",
+  description: "Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi untuk liburan, pernikahan, ulang tahun, dan keluarga.",
+  openGraph: {
+    title: "Cetak Photobook untuk Semua Momen Bahagia | Kidodia",
+    description: "Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi untuk liburan, pernikahan, ulang tahun, dan keluarga.",
+    images: ["https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg"],
+  },
+};
 
-  const btnProductDetail = (id: number) => {
-    router.push(`/products/${id}`)
-  }
+export default async function Home() {
 
-  useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data)
-    })
-  }, []);
+  const products = await getProducts();
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-stone-50">
@@ -36,21 +32,21 @@ export default function Home() {
 
       {/* ================= HERO / BANNER ================= */}
       <section className="mt-12">
-        <Carousel plugins={[Autoplay({ delay: 3000 })]}>
+        <CarouselWithAutoplay delay={3000}>
           <CarouselContent>
             {[1, 2, 3].map((item) => (
               <CarouselItem key={item} className="p-0">
                 <a href={`/products/sample-${item}`}>
                   <img
-                    src={`https://placehold.co/1440x420?text=Banner+${item}`}
+                    src={`https://ik.imagekit.io/lovisha/assets/banner/banner_${item}.jpg`}
                     alt={`Banner ${item}`}
-                    className="h-[40vw] min-h-40 max-h-80 md:h-95 w-full object-cover"
+                    className="h-[40vw] min-h-40 max-h-96 md:h-96 w-full object-cover"
                   />
                 </a>
               </CarouselItem>
             ))}
           </CarouselContent>
-        </Carousel>
+        </CarouselWithAutoplay>
       </section>
 
       {/* ================= TITLE & CTA ================= */}
@@ -63,17 +59,22 @@ export default function Home() {
             Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi
             untuk liburan, pernikahan, ulang tahun, dan keluarga.
           </p>
-          <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300" onClick={() => router.push('/products')}>
+          <Link href="/products"  >
+          
+          <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
             Buat Photobook Sekarang
           </Button>
+          </Link>
         </div>
       </section>
 
       {/* ================= SOCIAL PROOF ================= */}
-      <LazySection animation="fade-up">
+     
       
         <section className="py-20 bg-stone-50 text-center">
+          
           <div className="container mx-auto max-w-4xl px-4">
+            <LazySection animation="fade-up">
             <h2 className="text-2xl font-semibold">
               Dipercaya untuk Mengabadikan Banyak Momen Berharga
             </h2>
@@ -81,7 +82,7 @@ export default function Home() {
               Ribuan pelanggan di Indonesia mempercayakan kenangan mereka ke Kidodia.
             </p>
 
-            <Carousel plugins={[Autoplay({ delay: 2500 })]} className="mt-12">
+            <CarouselWithAutoplay delay={2500} className="mt-12">
               <CarouselContent className="gap-6">
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
                   <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
@@ -97,14 +98,16 @@ export default function Home() {
               </CarouselContent>
               <CarouselNext />
               <CarouselPrevious />
-            </Carousel>
+            </CarouselWithAutoplay>
+            </LazySection>
           </div>
         </section>
-      </LazySection>
+      
 
       {/* ================= WHY KIDODIA ================= */}
-      <LazySection animation="fade-up">
+      
         <section className="bg-gray-100 py-20">
+          <LazySection animation="fade-up">
           <div className="container mx-auto max-w-6xl px-4 text-center">
             <h2 className="text-2xl font-semibold">
               Kenanganmu Layak Dicetak dengan Baik
@@ -127,12 +130,14 @@ export default function Home() {
               ))}
             </div>
           </div>
+          </LazySection>
         </section>
-      </LazySection>
+      
 
       {/* ================= ORDER FLOW ================= */}
-      <LazySection animation="fade-up">
+      
       <section className="py-20 text-center">
+        <LazySection animation="fade-up">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="text-2xl font-semibold">
             Abadikan Momen Kamu dengan Mudah
@@ -153,8 +158,8 @@ export default function Home() {
             ))}
           </div>
         </div>
+        </LazySection>
       </section>
-      </LazySection>
 
       {/* ================= PRODUCT KNOWLEDGE ================= */}
       <section className="py-20 bg-white">
@@ -198,7 +203,7 @@ export default function Home() {
             {products
               .filter((product: any) => product.is_active) // Only show active products
               .map((product: any) => (
-                <div key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer" onClick={() => btnProductDetail(product.slug)}>
+                <div key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer">
                   <img
                     src={product.image_main_url}
                     className="mb-3 rounded-md"
@@ -210,7 +215,7 @@ export default function Home() {
                   </p>
                   <div className="mb-3">
                     {product.discount_amount > 0 ? (
-                      <div>
+                      <div className="flex flex-col">
                         <span className="text-gray-400 line-through mr-2">
                           Rp{product.price.toLocaleString("id-ID")}
                         </span>
@@ -224,12 +229,13 @@ export default function Home() {
                       </span>
                     )}
                   </div>
+                  <Link href={`/products/${product.slug}`}>
                   <Button
                     className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
-                    onClick={() => btnProductDetail(product.slug)}
                   >
                     Lihat Detail
                   </Button>
+                  </Link>
                 </div>
               ))}
           </div>

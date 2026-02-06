@@ -26,16 +26,20 @@ export default function LazySection({
       ref={ref}
       className={clsx(
         "transition-all duration-800 ease-out will-change-transform",
-        !inView && {
-          "opacity-0 translate-y-20": animation === "fade-up",
-          "opacity-0": animation === "fade-in",
-          "opacity-0 -translate-x-6": animation === "slide-right",
-          "opacity-0 translate-x-6": animation === "slide-left",
-        },
-        inView && "opacity-100 translate-x-0 translate-y-0"
+        inView
+          ? "opacity-100 translate-x-0 translate-y-0"
+          : animation === "fade-up"
+          ? "opacity-0 translate-y-20"
+          : animation === "fade-in"
+          ? "opacity-0"
+          : animation === "slide-right"
+          ? "opacity-0 -translate-x-6"
+          : animation === "slide-left"
+          ? "opacity-0 translate-x-6"
+          : ""
       )}
     >
-      {inView ? children : fallback ?? <div className="h-40" />}
+      {children}
     </div>
   )
 }
