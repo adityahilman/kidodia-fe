@@ -61,9 +61,9 @@ export default async function Home() {
           </p>
           <Link href="/products"  >
           
-          <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
-            Buat Photobook Sekarang
-          </Button>
+            <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
+              Buat Photobook Sekarang
+            </Button>
           </Link>
         </div>
       </section>
@@ -71,8 +71,7 @@ export default async function Home() {
       {/* ================= SOCIAL PROOF ================= */}
         <section className="py-20 bg-stone-50 text-center">
           
-          <div className="container mx-auto max-w-4xl px-4">
-            <LazySection animation="fade-up">
+          <div data-aos="fade-up" className="container mx-auto max-w-4xl px-4">
             <h2 className="text-2xl font-semibold">
               Dipercaya untuk Mengabadikan Banyak Momen Berharga
             </h2>
@@ -81,12 +80,12 @@ export default async function Home() {
             </p>
 
             <CarouselWithAutoplay delay={2500} className="mt-12">
-              <CarouselContent className="gap-6">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+              <CarouselContent className="gap-2">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                   <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
                     <img
-                      src={`https://placehold.co/220x360?text=Review+${item}`}
-                      className="mx-auto rounded-lg shadow-md"
+                      src={`https://ik.imagekit.io/lovisha/assets/review/${item}.jpg?updatedAt=1770765351197`}
+                      className="mx-auto rounded-md shadow-md"
                     />
                     <p className="mt-2 text-sm text-gray-500">
                       Customer Review
@@ -97,7 +96,6 @@ export default async function Home() {
               <CarouselNext />
               <CarouselPrevious />
             </CarouselWithAutoplay>
-            </LazySection>
           </div>
         </section>
       
@@ -105,8 +103,7 @@ export default async function Home() {
       {/* ================= WHY KIDODIA ================= */}
       
         <section className="bg-gray-100 py-20">
-          <LazySection animation="fade-up">
-          <div className="container mx-auto max-w-6xl px-4 text-center">
+          <div data-aos="fade-up" className="container mx-auto max-w-6xl px-4 text-center">
             <h2 className="text-2xl font-semibold">
               Kenanganmu Layak Dicetak dengan Baik
             </h2>
@@ -128,16 +125,14 @@ export default async function Home() {
               ))}
             </div>
           </div>
-          </LazySection>
         </section>
       
 
       {/* ================= ORDER FLOW ================= */}
       
       <section className="py-20 text-center">
-        <LazySection animation="fade-up">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="text-2xl font-semibold">
+          <h2 data-aos="fade-up" className="text-2xl font-semibold">
             Abadikan Momen Kamu dengan Mudah
           </h2>
 
@@ -148,7 +143,7 @@ export default async function Home() {
               ["Upload Foto", "Unggah foto-foto terbaikmu, biarkan kami mengubahnya jadi kenangan yang indah", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/upload-photos.png`],
               ["Produksi & Kirim", "Photobook dicetak dengan penuh perhatian lalu dikirim hingga ke alamatmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/package-done.png`],
             ].map(([title, desc, image], i) => (
-                <div key={i}>
+                <div key={i} data-aos="fade-up">
                 <img src={image || "https://placehold.co/180x180"} className="mx-auto h-20 w-20" />
                 <h3 className="mt-4 font-semibold">{title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{desc}</p>
@@ -156,15 +151,13 @@ export default async function Home() {
             ))}
           </div>
         </div>
-        </LazySection>
       </section>
 
       {/* ================= PRODUCT KNOWLEDGE ================= */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto max-w-6xl px-4 space-y-16">
-          <LazySection animation="slide-right">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <img src="https://placehold.co/600x400" className="rounded-xl" />
+        <div  className="container mx-auto max-w-6xl px-4 space-y-16">
+          <div className="grid lg:grid-cols-2 gap-10 items-center"  data-aos="fade-up">
+            <img src="https://ik.imagekit.io/lovisha/assets/banner/banner_3.jpg?updatedAt=1770386200913" className="rounded-xl" />
             <div>
               <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
               <p className="mt-3 text-gray-600">
@@ -173,24 +166,22 @@ export default async function Home() {
               </p>
             </div>
           </div>
-          </LazySection>
-          <LazySection animation="slide-left">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
+      
+          <div className="grid lg:grid-cols-2 gap-10 items-center" data-aos="fade-up">
+            
+            <img src="https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg?updatedAt=1770386200913" className="rounded-xl" />
             <div>
               <h2 className="text-xl font-semibold">Cover Elegan</h2>
               <p className="mt-3 text-gray-600">
                 Desain cover modern yang cocok untuk semua momen.
               </p>
             </div>
-            <img src="https://placehold.co/600x400" className="rounded-xl" />
           </div>
-          </LazySection>
 
         </div>
       </section>
       
       {/* ================= PRODUCT LIST ================= */}
-      <LazySection animation="fade-up">
       <section className="py-20">
         <div className="container mx-auto max-w-6xl px-4">
           <h2 className="mb-10 text-center text-2xl font-semibold">
@@ -201,7 +192,7 @@ export default async function Home() {
             {products
               .filter((product: any) => product.is_active) // Only show active products
               .map((product: any) => (
-                <div key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer">
+                <div data-aos="fade-up" key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer">
                   <img
                     src={product.image_main_url}
                     className="mb-3 rounded-md"
@@ -217,12 +208,12 @@ export default async function Home() {
                         <span className="text-gray-400 line-through mr-2">
                           Rp{product.price.toLocaleString("id-ID")}
                         </span>
-                        <span className="text-green-600 ">
+                        <span className="text-green-600 font-semibold">
                           Rp{product.final_price.toLocaleString("id-ID")}
                         </span>
                       </div>
                     ) : (
-                      <span className="text-blue-600">
+                      <span className="text-blue-600 font-semibold">
                         Rp{product.price.toLocaleString("id-ID")}
                       </span>
                     )}
@@ -239,12 +230,10 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      </LazySection>
 
       {/* ================= FAQ ================= */}
-      <LazySection animation="fade-up">
       <section className="bg-gray-100 py-20">
-        <div className="mx-auto max-w-4xl px-4">
+        <div data-aos="fade-up" className="mx-auto max-w-4xl px-4">
           <h2 className="mb-10 text-center text-2xl font-semibold">
             Pertanyaan Seputar Photobook
           </h2>
@@ -290,10 +279,17 @@ export default async function Home() {
                 Untuk upload foto, silahkan klik link ini lalu masukkan nomor order dan email yang digunakan saat pemesanan: <span className="text-blue-600"><a href={`${process.env.NEXT_PUBLIC_BASE_URL}/order`}>https://kidodia.com/order</a></span>
               </p>
             </details>
+            <details className="rounded-xl bg-white p-4 shadow-sm">
+              <summary className="cursor-pointer font-medium">
+                Saya ada kendala saat upload foto, bagaimana caranya ya?
+              </summary>
+              <p className="mt-2 text-sm text-gray-600">
+                Silahkan hubungi customer service kami melalui WhatsApp di <span className="text-blue-600"><a href="https://wa.me/6281586575295">6281586575295</a></span> untuk bantuan lebih lanjut.
+              </p>
+            </details>
           </div>
         </div>
       </section>
-      </LazySection>
 
       <Footer />
     </div>
