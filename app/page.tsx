@@ -184,7 +184,7 @@ export default async function Home() {
       {/* ================= PRODUCT LIST ================= */}
       <section className="py-20">
         <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="mb-10 text-center text-2xl font-semibold">
+          <h2 className="mb-10 text-center text-2xl font-semibold" data-aos="fade-up">
             Daftar Produk
           </h2>
 
@@ -220,6 +220,7 @@ export default async function Home() {
                   </div>
                   <Link href={`/products/${product.slug}`}>
                   <Button
+                    id={`btn-product-${product.slug}`}
                     className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
                   >
                     Lihat Detail
@@ -228,6 +229,14 @@ export default async function Home() {
                 </div>
               ))}
           </div>
+        </div>
+        <div className="flex justify-center" data-aos="fade-up">
+            <Link href="/products"  >
+          
+            <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
+              Buat Photobookmu Sekarang
+            </Button>
+          </Link>
         </div>
       </section>
 
