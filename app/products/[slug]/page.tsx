@@ -4,24 +4,10 @@ import Footer from "@/components/footer";
 import { getProductBySlug } from "@/lib/api/products";
 
 import OrderButtonComponent from "@/components/ButtonOrder";
+import Image from "next/image";
 
-
-// export async function generateMetadata({ params }: { params: { slug: string } }) {
-//   console.log("Generating metadata for slug:", params.slug);
-//   const product = await getProductBySlug(params.slug);
-//   return {
-//     title: product?.main_title || "Photobook Premium",
-//     description: product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium.",
-//     openGraph: {
-//       title: product?.main_title || "Photobook Premium",
-//       description: product?.main_description || "",
-//       images: [product?.image_main_url || `https://placehold.co/800x600?text=${params.slug}`],
-//     },
-//   };
-// }
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  console.log("Rendering product detail page for slug:", params.slug);
   const resolvedParams = await params;
   const product = await getProductBySlug(resolvedParams.slug);
 
@@ -42,11 +28,14 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               </span>
             ) : null}
 
-            <img
-              src={product?.image_main_url || `https://placehold.co/800x600?text=${params.slug}`}
+            <Image
+              src={product?.image_main_url || `https://placehold.co/800x600?text=${resolvedParams.slug}`}
               alt={product?.main_title || "Photobook Preview"}
               className="w-full rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
+              width={800}
+              height={600}
             />
+            
           </div>
 
           {/* Info */}
@@ -101,15 +90,18 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
       </main>
 
       {/* ================= DETAIL SECTION ================= */}
-      <section className="bg-white py-28">
-        <div className="max-w-5xl mx-auto px-6 space-y-32">
+      <section className="bg-white py-16">
+        <div className="max-w-5xl mx-auto px-6 space-y-20">
 
           {/* Cover Detail */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <img
-              src={product?.image_secondary_url || `https://placehold.co/800x600?text=${params.slug}`}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center" data-aos="fade-up">
+           
+            <Image 
+              src={product?.image_secondary_url || `https://placehold.co/800x600?text=${resolvedParams.slug}`}
               alt="Cover Detail"
               className="rounded-2xl shadow-md"
+              width={800}
+              height={600}
             />
             <div className="max-w-md">
               <h2 className="text-2xl font-semibold text-gray-900">
@@ -122,7 +114,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           </div>
 
           {/* Printing Quality */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center" data-aos="fade-up">
             <div className="max-w-md order-2 lg:order-1">
               <h2 className="text-2xl font-semibold text-gray-900">
                 {product?.third_title}
@@ -131,15 +123,17 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 {product?.third_description}
               </p>
             </div>
-            <img
-              src={product?.image_tertiary_url || `https://placehold.co/800x600?text=${params.slug}`}
-              alt="Printing Quality"
-              className="rounded-2xl shadow-md order-1 lg:order-2"
+            <Image 
+              src={product?.image_tertiary_url || `https://placehold.co/800x600?text=${resolvedParams.slug}`}
+              alt="Cover Detail"
+              className="rounded-2xl shadow-md"
+              width={800}
+              height={600}
             />
           </div>
 
           {/* CTA Again */}
-          <div className="text-center">
+          <div className="text-center" data-aos="fade-up">
             <OrderButtonComponent
               slug={resolvedParams.slug}
               className="px-14 py-7 text-lg font-semibold rounded bg-[#0095a0] hover:bg-[#2f4858] transition"
@@ -147,7 +141,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               Pesan Photobook Sekarang
             </OrderButtonComponent>
 
-            <div className="mt-6 flex justify-center gap-6 text-sm text-gray-500">
+            <div className="my-6 flex justify-center gap-6 text-sm text-gray-500">
               <span>✔ Cetak Premium</span>
               <span>✔ Mudah dari HP</span>
               <span>✔ Kirim ke Seluruh Indonesia</span>
