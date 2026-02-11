@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { getProducts } from "@/lib/api/products";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
     title: "Daftar Produk",
@@ -32,36 +33,38 @@ export default async function ProductsListPage() {
                             href={`/products/${product.slug}`}
                             className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer block"
                         >
-                        <img
-                            src={product.image_main_url}
-                            className="mb-3 rounded-md"
-                            alt={product.main_title}
-                        />
-                        <h3 className="font-semibold">{product.main_title}</h3>
-                        <p className="text-xs text-gray-600 mb-3">
-                            {product.main_description}
-                        </p>
-                        <div className="mb-3">
-                            {product.discount_amount > 0 ? (
-                            <div className="flex flex-col">
-                                <span className="text-gray-400 line-through mr-2">
-                                Rp{product.price.toLocaleString("id-ID")}
+                            <Image
+                                src={product.image_main_url}
+                                className="mb-3 rounded-md"
+                                alt={product.main_title}
+                                width={400}
+                                height={400}
+                            />
+                            <h3 className="font-semibold">{product.main_title}</h3>
+                            <p className="text-xs text-gray-600 mb-3">
+                                {product.main_description}
+                            </p>
+                            <div className="mb-3">
+                                {product.discount_amount > 0 ? (
+                                <div className="flex flex-col">
+                                    <span className="text-gray-400 line-through mr-2">
+                                    Rp{product.price.toLocaleString("id-ID")}
+                                    </span>
+                                    <span className="text-green-600 ">
+                                    Rp{product.final_price.toLocaleString("id-ID")}
+                                    </span>
+                                </div>
+                                ) : (
+                                <span className="text-blue-600">
+                                    Rp{product.price.toLocaleString("id-ID")}
                                 </span>
-                                <span className="text-green-600 ">
-                                Rp{product.final_price.toLocaleString("id-ID")}
-                                </span>
+                                )}
                             </div>
-                            ) : (
-                            <span className="text-blue-600">
-                                Rp{product.price.toLocaleString("id-ID")}
-                            </span>
-                            )}
-                        </div>
-                        <Button
-                            className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
-                        >
-                            Lihat Detail
-                        </Button>
+                            <Button
+                                className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
+                            >
+                                Lihat Detail
+                            </Button>
                         </Link>
                     ))}
                 </div>
