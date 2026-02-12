@@ -34,6 +34,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               className="w-full rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-[1.02]"
               width={800}
               height={600}
+              loading="eager"
             />
             
           </div>
@@ -44,12 +45,16 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               {product?.main_title || "Photobook Premium"}
             </h1>
 
-            <h2 className="mt-3 text-gray-500 max-w-md">
+            <h2 className="mt-3 text-gray-700 max-w-md">
               {product?.main_description || "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium."}
             </h2>
 
+            <p className="mt-6 text-sm">
+              Spesifikasi photobook {product?.main_title}:
+            </p>
+
             {product?.specifications && (
-              <ul className="mt-2 mb-2 text-sm text-gray-700 list-disc list-inside">
+              <ul className="mt-1 mb-2 text-sm text-gray-700 list-disc list-inside">
                 {JSON.parse(product.specifications).map((spec: string, idx: number) => (
                   <li key={idx}>{spec}</li>
                 ))}

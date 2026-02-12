@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { getProducts } from "@/lib/api/products"
-import LazySection from "@/components/LazySection"
 import Link from "next/link"
+import Image from "next/image"
 
 export const metadata = {
   title: "Cetak Photobook untuk Semua Momen Bahagia | Kidodia",
@@ -37,10 +37,12 @@ export default async function Home() {
             {[1, 2, 3].map((item) => (
               <CarouselItem key={item} className="p-0">
                 <a href={`/products/sample-${item}`}>
-                  <img
+                  <Image
                     src={`https://ik.imagekit.io/lovisha/assets/banner/banner_${item}.jpg`}
                     alt={`Banner ${item}`}
                     className="h-[40vw] min-h-40 max-h-96 md:h-96 w-full object-cover"
+                    width={1200}
+                    height={400}
                   />
                 </a>
               </CarouselItem>
@@ -83,9 +85,12 @@ export default async function Home() {
               <CarouselContent className="gap-2">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                   <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
-                    <img
+                    <Image
                       src={`https://ik.imagekit.io/lovisha/assets/review/${item}.jpg?updatedAt=1770765351197`}
                       className="mx-auto rounded-md shadow-md"
+                      alt={`Customer Review ${item}`}
+                      width={200}
+                      height={200}
                     />
                     <p className="mt-2 text-sm text-gray-500">
                       Customer Review
@@ -138,13 +143,13 @@ export default async function Home() {
 
           <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
             {[
-              ["Pilih Photobook", "Pilih photobook yang sesuai dengan kebutuhanmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/select-product.png`],
-              ["Checkout", "Selesaikan pembayaran dengan cepat dan aman, kemudian pesananmu langsung kami proses", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/checkout.png`],
-              ["Upload Foto", "Unggah foto-foto terbaikmu, biarkan kami mengubahnya jadi kenangan yang indah", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/upload-photos.png`],
-              ["Produksi & Kirim", "Photobook dicetak dengan penuh perhatian lalu dikirim hingga ke alamatmu", `${process.env.NEXT_PUBLIC_BASE_URL}/icons/package-done.png`],
+              ["Pilih Photobook", "Pilih photobook yang sesuai dengan kebutuhanmu", `/icons/select-product.png`],
+              ["Checkout", "Selesaikan pembayaran dengan cepat dan aman, kemudian pesananmu langsung kami proses", `/icons/checkout.png`],
+              ["Upload Foto", "Unggah foto-foto terbaikmu, biarkan kami mengubahnya jadi kenangan yang indah", `/icons/upload-photos.png`],
+              ["Produksi & Kirim", "Photobook dicetak dengan penuh perhatian lalu dikirim hingga ke alamatmu", `/icons/package-done.png`],
             ].map(([title, desc, image], i) => (
                 <div key={i} data-aos="fade-up">
-                <img src={image || "https://placehold.co/180x180"} className="mx-auto h-20 w-20" />
+                <Image src={image || "https://placehold.co/180x180"} className="mx-auto h-20 w-20" alt={title} width={80} height={80} />
                 <h3 className="mt-4 font-semibold">{title}</h3>
                 <p className="mt-1 text-sm text-gray-600">{desc}</p>
               </div>
@@ -157,7 +162,7 @@ export default async function Home() {
       <section className="py-20 bg-white">
         <div  className="container mx-auto max-w-6xl px-4 space-y-16">
           <div className="grid lg:grid-cols-2 gap-10 items-center"  data-aos="fade-up">
-            <img src="https://ik.imagekit.io/lovisha/assets/banner/banner_3.jpg?updatedAt=1770386200913" className="rounded-xl" />
+            <Image src="https://ik.imagekit.io/lovisha/assets/banner/banner_3.jpg?updatedAt=1770386200913" className="rounded-xl" alt="Bahan Premium & Tahan Lama" width={1200} height={400} />
             <div>
               <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
               <p className="mt-3 text-gray-600">
@@ -169,7 +174,7 @@ export default async function Home() {
       
           <div className="grid lg:grid-cols-2 gap-10 items-center" data-aos="fade-up">
             
-            <img src="https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg?updatedAt=1770386200913" className="rounded-xl" />
+            <Image src="https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg?updatedAt=1770386200913" className="rounded-xl" alt="Cover Elegan" width={1200} height={400} />
             <div>
               <h2 className="text-xl font-semibold">Cover Elegan</h2>
               <p className="mt-3 text-gray-600">
@@ -193,10 +198,12 @@ export default async function Home() {
               .filter((product: any) => product.is_active) // Only show active products
               .map((product: any) => (
                 <div data-aos="fade-up" key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer">
-                  <img
+                  <Image
                     src={product.image_main_url}
                     className="mb-3 rounded-md"
                     alt={product.main_title}
+                    width={400}
+                    height={400}
                   />
                   <h3 className="font-semibold">{product.main_title}</h3>
                   <p className="text-xs text-gray-600 mb-3">
@@ -290,7 +297,7 @@ export default async function Home() {
             </details>
             <details className="rounded-xl bg-white p-4 shadow-sm">
               <summary className="cursor-pointer font-medium">
-                Saya ada kendala saat upload foto, bagaimana caranya ya?
+                Kalau saya ada kendala, bagaimana cara menghubungi customer service?
               </summary>
               <p className="mt-2 text-sm text-gray-600">
                 Silahkan hubungi customer service kami melalui WhatsApp di <span className="text-blue-600"><a href="https://wa.me/6281586575295">6281586575295</a></span> untuk bantuan lebih lanjut.
