@@ -38,7 +38,7 @@ export default async function Home() {
               <CarouselItem key={item} className="p-0">
                 <a href={`/products/sample-${item}`}>
                   <Image
-                    src={`https://ik.imagekit.io/lovisha/assets/banner/banner_${item}.jpg`}
+                    src={`https://ik.imagekit.io/kidodia/assets/banner/banner_${item}.jpg`}
                     alt={`Banner ${item}`}
                     className="h-[40vw] min-h-40 max-h-96 md:h-96 w-full object-cover"
                     width={1200}
@@ -86,7 +86,7 @@ export default async function Home() {
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                   <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
                     <Image
-                      src={`https://ik.imagekit.io/lovisha/assets/review/${item}.jpg?updatedAt=1770765351197`}
+                      src={`https://ik.imagekit.io/kidodia/assets/review/${item}.jpg?updatedAt=1770765351197`}
                       className="mx-auto rounded-md shadow-md"
                       alt={`Customer Review ${item}`}
                       width={200}
