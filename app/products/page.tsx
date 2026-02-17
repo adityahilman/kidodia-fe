@@ -62,6 +62,7 @@ export default async function ProductsListPage() {
                             </div>
                             <Button
                                 className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
+                                id={`btn-detail-${product.slug}`}
                             >
                                 Lihat Detail
                             </Button>

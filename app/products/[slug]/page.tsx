@@ -82,6 +82,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               <OrderButtonComponent
                 slug={resolvedParams.slug}
                 className="mt-6 w-full rounded py-6 text-lg font-semibold bg-[#0095a0] hover:bg-[#2f4858] transition"
+                id={`btn-order-${resolvedParams.slug}`}
               >
                 Pesan Sekarang
               </OrderButtonComponent>
@@ -142,6 +143,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
             <OrderButtonComponent
               slug={resolvedParams.slug}
               className="px-14 py-7 text-lg font-semibold rounded bg-[#0095a0] hover:bg-[#2f4858] transition"
+              id={`btn-order-${resolvedParams.slug}`}
             >
               Pesan Photobook Sekarang
             </OrderButtonComponent>
