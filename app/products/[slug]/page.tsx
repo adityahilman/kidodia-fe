@@ -6,7 +6,19 @@ import { getProductBySlug } from "@/lib/api/products";
 import OrderButtonComponent from "@/components/ButtonOrder";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const product = await getProductBySlug(resolvedParams.slug);
+  return {
+    title: product?.main_title || "Photobook Premium",
+    description:
+      product?.main_description ||
+      "Abadikan momen spesial Anda dalam photobook berkualitas tinggi, dicetak dengan standar premium.",
+  };
+}
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
   const resolvedParams = await params;
