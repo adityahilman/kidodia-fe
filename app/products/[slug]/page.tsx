@@ -5,6 +5,7 @@ import { getProductBySlug } from "@/lib/api/products";
 
 import OrderButtonComponent from "@/components/ButtonOrder";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
@@ -79,13 +80,22 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 )}
               </div>
 
-              <OrderButtonComponent
-                slug={resolvedParams.slug}
-                className="mt-6 w-full rounded py-6 text-lg font-semibold bg-[#0095a0] hover:bg-[#2f4858] transition"
-                id={`btn-order-${resolvedParams.slug}`}
-              >
-                Pesan Sekarang
-              </OrderButtonComponent>
+              <div className="flex flex-col space-y-2">
+                <OrderButtonComponent
+                  slug={resolvedParams.slug}
+                  className="mt-6 w-full rounded py-6 text-lg font-semibold bg-[#0095a0] hover:bg-[#2f4858] transition"
+                  id={`btn-order-${resolvedParams.slug}`}
+                >
+                  Pesan Sekarang
+                </OrderButtonComponent>
+                <Link
+                  href={`https://wa.me/6281585675295/?text=Halo%2C%20saya%20mau%20pesan%20photobook%20${encodeURIComponent(resolvedParams.slug)}%2C%20bagaimana%20caranya%3F`}
+                  className="rounded w-full bg-green-600 text-white py-2 hover:bg-green-800 text-center"
+                  id="btn_wa"
+                >
+                  Pesan via Whatsapp
+                </Link>
+              </div>
 
               <p className="mt-3 text-center text-sm text-gray-500">
                 * Proses mudah, cukup dari HP
