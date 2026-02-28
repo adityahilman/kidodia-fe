@@ -2,21 +2,21 @@ import CarouselWithAutoplay from "@/components/carousel"
 import {
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Button } from "@/components/ui/button"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { getProducts } from "@/lib/api/products"
 import Link from "next/link"
 import Image from "next/image"
+import ProductList from "@/components/ProductList"
+import FAQ from "@/components/FAQ"
+import CustomerReview from "@/components/CustomerReview"
 
 export const metadata = {
-  title: "Cetak Photobook untuk Semua Momen Bahagia | Kidodia",
+  title: "Karena Momen Bahagia Layak Dicetak, Bukan Hanya Disimpan | Kidodia",
   description: "Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi untuk liburan, pernikahan, ulang tahun, dan keluarga.",
   openGraph: {
-    title: "Cetak Photobook untuk Semua Momen Bahagia | Kidodia",
+    title: "Karena Momen Bahagia Layak Dicetak, Bukan Hanya Disimpan | Kidodia",
     description: "Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi untuk liburan, pernikahan, ulang tahun, dan keluarga.",
     images: ["https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg"],
   },
@@ -24,14 +24,19 @@ export const metadata = {
 
 export default async function Home() {
 
-  const products = await getProducts();
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-hidden bg-stone-50">
       <Header />
 
       {/* ================= HERO / BANNER ================= */}
-      <section className="mt-12">
+      <section className="mt-12 relative">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-black/40">
+          <h1 className="text-white text-2xl md:text-3xl font-bold drop-shadow-lg text-center">
+            Karena Momen Bahagia Layak Dicetak, Bukan Hanya Disimpan
+          </h1>
+          
+        </div>
         <CarouselWithAutoplay delay={3000}>
           <CarouselContent>
             {[1, 2, 3].map((item) => (
@@ -52,17 +57,13 @@ export default async function Home() {
       </section>
 
       {/* ================= TITLE & CTA ================= */}
-      <section className="py-20 text-center bg-[#00947e]/10">
+      <section className="py-10 text-center bg-[#00947e]/10">
         <div className="container mx-auto max-w-3xl px-4">
-          <h1 className="text-4xl font-bold tracking-tight text-stone-700">
-            Cetak Photobook untuk Semua Momen Bahagia
-          </h1>
-          <p className="mt-4 text-gray-700">
+          <p className=" text-gray-700">
             Ubah foto-foto terbaikmu menjadi photobook berkualitas tinggi
             untuk liburan, pernikahan, ulang tahun, dan keluarga.
           </p>
           <Link href="/products"  >
-          
             <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
               Buat Photobook Sekarang
             </Button>
@@ -71,39 +72,9 @@ export default async function Home() {
       </section>
 
       {/* ================= SOCIAL PROOF ================= */}
-        <section className="py-20 bg-stone-50 text-center">
-          
-          <div data-aos="fade-up" className="container mx-auto max-w-4xl px-4">
-            <h2 className="text-2xl font-semibold">
-              Dipercaya untuk Mengabadikan Banyak Momen Berharga
-            </h2>
-            <p className="mt-3 text-gray-600">
-              Ribuan pelanggan di Indonesia mempercayakan kenangan mereka ke Kidodia.
-            </p>
-
-            <CarouselWithAutoplay delay={2500} className="mt-12">
-              <CarouselContent className="gap-2">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                  <CarouselItem key={item} className="basis-1/2 md:basis-1/4">
-                    <Image
-                      src={`https://ik.imagekit.io/kidodia/assets/review/${item}.jpg?updatedAt=1770765351197`}
-                      className="mx-auto rounded-md shadow-md"
-                      alt={`Customer Review ${item}`}
-                      width={200}
-                      height={200}
-                    />
-                    <p className="mt-2 text-sm text-gray-500">
-                      Customer Review
-                    </p>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselNext />
-              <CarouselPrevious />
-            </CarouselWithAutoplay>
-          </div>
-        </section>
-      
+      <div className="px-6">
+        <CustomerReview />
+      </div>
 
       {/* ================= WHY KIDODIA ================= */}
       
@@ -164,10 +135,9 @@ export default async function Home() {
           <div className="grid lg:grid-cols-2 gap-10 items-center"  data-aos="fade-up">
             <Image src="https://ik.imagekit.io/lovisha/assets/banner/banner_3.jpg?updatedAt=1770386200913" className="rounded-xl" alt="Bahan Premium & Tahan Lama" width={1200} height={400} />
             <div>
-              <h2 className="text-xl font-semibold">Bahan Premium & Tahan Lama</h2>
+              <h2 className="text-xl font-semibold">Kualitas yang Terasa di Setiap Sentuhan</h2>
               <p className="mt-3 text-gray-600">
-                Menggunakan bahan berkualitas tinggi agar kenanganmu awet
-                dan tampil maksimal.
+                Kenangan berharga pantas disimpan dalam kualitas terbaik. Dari cover yang kokoh hingga halaman yang halus dan nyaman disentuh, setiap detail dirancang untuk membuat momen bahagiamu terasa lebih nyata. Karena ketika kamu membukanya kembali, yang ingin kamu rasakan bukan hanya melihat foto tapi menghidupkan kembali ceritanya.
               </p>
             </div>
           </div>
@@ -176,9 +146,9 @@ export default async function Home() {
             
             <Image src="https://ik.imagekit.io/lovisha/assets/banner/banner_1.jpg?updatedAt=1770386200913" className="rounded-xl" alt="Cover Elegan" width={1200} height={400} />
             <div>
-              <h2 className="text-xl font-semibold">Cover Elegan</h2>
+              <h2 className="text-xl font-semibold">Elegan, Modern, dan Tak Lekang Waktu</h2>
               <p className="mt-3 text-gray-600">
-                Desain cover modern yang cocok untuk semua momen.
+                Desain cover dibuat simpel namun berkelas, dengan detail rapi dan tampilan yang tetap terlihat mewah. Cocok untuk berbagai momen spesial, dan tetap indah meski dilihat bertahun-tahun kemudian.
               </p>
             </div>
           </div>
@@ -186,126 +156,10 @@ export default async function Home() {
         </div>
       </section>
       
-      {/* ================= PRODUCT LIST ================= */}
-      <section className="py-20">
-        <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="mb-10 text-center text-2xl font-semibold" data-aos="fade-up">
-            Daftar Produk
-          </h2>
+      <ProductList />
+      
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {products
-              .filter((product: any) => product.is_active) // Only show active products
-              .map((product: any) => (
-                <div data-aos="fade-up" key={product.slug} className="rounded-md border p-4 hover:scale-110 transition-all duration-500 cursor-pointer">
-                  <Image
-                    src={product.image_main_url}
-                    className="mb-3 rounded-md"
-                    alt={product.main_title}
-                    width={400}
-                    height={400}
-                  />
-                  <h3 className="font-semibold">{product.main_title}</h3>
-                  <p className="text-xs text-gray-600 mb-3">
-                    {product.main_description}
-                  </p>
-                  <div className="mb-3">
-                    {product.discount_amount > 0 ? (
-                      <div className="flex flex-col">
-                        <span className="text-gray-400 line-through mr-2">
-                          Rp{product.price.toLocaleString("id-ID")}
-                        </span>
-                        <span className="text-green-600 font-semibold">
-                          Rp{product.final_price.toLocaleString("id-ID")}
-                        </span>
-                      </div>
-                    ) : (
-                      <span className="text-blue-600 font-semibold">
-                        Rp{product.price.toLocaleString("id-ID")}
-                      </span>
-                    )}
-                  </div>
-                  <Link href={`/products/${product.slug}`}>
-                  <Button
-                    id={`btn-product-${product.slug}`}
-                    className="w-full rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300"
-                  >
-                    Lihat Detail
-                  </Button>
-                  </Link>
-                </div>
-              ))}
-          </div>
-        </div>
-        <div className="flex justify-center" data-aos="fade-up">
-            <Link href="/products"  >
-          
-            <Button id="btn-list-products" className="mt-8 px-14 py-6 text-lg rounded bg-[#0095a0] hover:bg-[#2f4858] cursor-pointer hover:scale-110 transition-all duration-300">
-              Buat Photobookmu Sekarang
-            </Button>
-          </Link>
-        </div>
-      </section>
-
-      {/* ================= FAQ ================= */}
-      <section className="bg-gray-100 py-20">
-        <div data-aos="fade-up" className="mx-auto max-w-4xl px-4">
-          <h2 className="mb-10 text-center text-2xl font-semibold">
-            Pertanyaan Seputar Photobook
-          </h2>
-
-          <div className="space-y-4">
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Photobook cocok untuk momen apa saja?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Cocok untuk semua momen bahagia seperti liburan, pernikahan, dan keluarga.
-              </p>
-            </details>
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Bisa order dari HP?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Bisa, semua proses bisa dilakukan langsung dari handphone.
-              </p>
-            </details>
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Berapa lama proses cetak?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Rata-rata 7–14 hari kerja.
-              </p>
-            </details>
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Berapa lama batas waktu upload foto setelah order?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Batas waktu upload foto adalah 30 hari setelah melakukan pemesanan.
-              </p>
-            </details>
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Saya sudah pernah pesan, tapi belum upload fotonya, bagaimana caranya ya?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Untuk upload foto, silahkan klik link ini lalu masukkan nomor order dan email yang digunakan saat pemesanan: <span className="text-blue-600"><a href={`${process.env.NEXT_PUBLIC_BASE_URL}/order`}>https://kidodia.com/order</a></span>
-              </p>
-            </details>
-            <details className="rounded-xl bg-white p-4 shadow-sm">
-              <summary className="cursor-pointer font-medium">
-                Kalau saya ada kendala, bagaimana cara menghubungi customer service?
-              </summary>
-              <p className="mt-2 text-sm text-gray-600">
-                Silahkan hubungi customer service kami melalui WhatsApp di <span className="text-blue-600"><a href="https://wa.me/6281586575295">6281586575295</a></span> untuk bantuan lebih lanjut.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
+      <FAQ />
 
       <Footer />
     </div>
