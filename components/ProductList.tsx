@@ -7,7 +7,7 @@ export default function ProductList() {
     return (
         <section className="max-w-5xl mx-auto px-6 py-20">
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center" data-aos="fade-right">
-                Pilih Photobook Favoritmu
+                Pilihan Photobook
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {/* Product Card */}
@@ -16,6 +16,11 @@ export default function ProductList() {
                         <Link href={`/product/${product.slug}`} className="flex flex-col flex-1">
                             <div className="p-4 flex flex-col flex-1 justify-between">
                                 <div>
+                                    {product.is_best_seller ? (
+                                        <span className="absolute top-2 left-1 px-4 py-1 rounded-xl bg-red-600 text-white z-10">
+                                            Best Seller
+                                        </span>
+                                    ) : null}
                                     <Image
                                         src={product.image_main_url}
                                         alt={product.title}

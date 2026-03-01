@@ -18,6 +18,7 @@ export const products = [
     "image_tertiary_url": "https://ik.imagekit.io/lovisha/assets/fancy_1.jpg?updatedAt=1770384942947",
     "is_promo": 1,
     "is_active": 1,
+    "is_best_seller": 0,
     "product_images": [
         "https://ik.imagekit.io/kidodia/assets/fancy/1.jpg?updatedAt=1772238467904",
         "https://ik.imagekit.io/kidodia/assets/fancy/2.jpg?updatedAt=1772238467904",
@@ -45,8 +46,9 @@ export const products = [
     "image_main_url": "https://ik.imagekit.io/lovisha/assets/snapbook.jpg?updatedAt=1770384943025",
     "image_secondary_url": "https://ik.imagekit.io/lovisha/assets/snapbook_2.jpg?updatedAt=1770384943025",
     "image_tertiary_url": "https://ik.imagekit.io/lovisha/assets/snapbook_3.jpg?updatedAt=1770384943025",
-    "is_promo": 0,
+    "is_promo": 1,
     "is_active": 1,
+    "is_best_seller": 1,
     "product_images": [
         "https://ik.imagekit.io/kidodia/assets/snapbook/1.jpg?updatedAt=1772238467904",
         "https://ik.imagekit.io/kidodia/assets/snapbook/2.jpg?updatedAt=1772238467904",
@@ -75,6 +77,7 @@ export const products = [
     "image_tertiary_url": "https://ik.imagekit.io/lovisha/assets/large_3.jpg?updatedAt=1770384975037",
     "is_promo": 1,
     "is_active": 1,
+    "is_best_seller": 0,
     "product_images": [
         "https://ik.imagekit.io/kidodia/assets/large/1.jpg?updatedAt=1772238467904",
         "https://ik.imagekit.io/kidodia/assets/large/2.jpg?updatedAt=1772238467904",
@@ -103,6 +106,7 @@ export const products = [
     "image_tertiary_url": "https://ik.imagekit.io/lovisha/assets/snapbook_3.jpg?updatedAt=1770384942963",
     "is_promo": 0,
     "is_active": 1,
+    "is_best_seller": 0,
     "product_images": [
         "https://ik.imagekit.io/kidodia/assets/softbook/1.jpg?updatedAt=1772238467904",
         "https://ik.imagekit.io/kidodia/assets/softbook/2.jpg?updatedAt=1772238467904",

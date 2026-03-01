@@ -158,7 +158,6 @@ export default async function Home() {
       
       <ProductList />
       
-
       <FAQ />
 
       <Footer />

@@ -9,6 +9,8 @@ import ProductGallery from "@/components/ProductGallery";
 import CustomerReview from "@/components/CustomerReview";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/footer";
+import OtherProduct from "@/components/OtherProduct";
+import ProductList from "@/components/ProductList";
 
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -70,8 +72,13 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 {/* Info */}
                 <div className="mt-6">
                     <div>
-                        <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+                        <h1 className="text-4xl font-bold tracking-tight text-gray-900 flex items-center gap-3">
                             {product.title}
+                            {product.is_best_seller && (
+                            <span className="text-base font-medium px-4 py-1 rounded-full bg-red-600 text-white ml-2">
+                                Best Seller
+                            </span>
+                            )}
                         </h1>
                     </div>
                     <div className="mt-2">
@@ -122,12 +129,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                         <p className="text-gray-500 text-sm">
                             *Potongan diskon lebih banyak untuk pembelian 2 photobook
                         </p>
-
-                      
                     </div>
-
-
-
 
                     <div className="flex flex-col space-y-2 mt-4">
                         <ButtonOrderWA phoneNumber="6281585675295" message={`Halo, saya mau pesan photobook ${product.title}, Apakah masih ada promonya?`} />
@@ -206,6 +208,8 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                     </div>  
                 </div>
             </section>
+
+            <ProductList />
 
             {/* FAQ Section */}
             <FAQ />
