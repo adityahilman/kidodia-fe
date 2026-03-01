@@ -84,21 +84,50 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                 {/* Price Card */}
                 <div className="rounded-lg bg-white border p-5 shadow-md mt-5">
                     <div className="space-y-2">
+                        <p>
+                            Promo Hemat, Beli 1
+                        </p>
                         <div className="flex items-center gap-4">
                             <p className="text-gray-500 font-medium text-lg line-through">
                                 Rp {product?.price?.toLocaleString("id-ID") || "129.000"}
                             </p>
-                            <p className="bg-green-100 px-2 py-1 text-green-800">
-                                Hemat {Math.round((product?.discount_amount / product?.price) * 100) || 23}%
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-blue-600 text-3xl font-semibold">
+                             <p className="text-blue-600 text-2xl font-semibold">
                                 Rp {product?.final_price?.toLocaleString("id-ID") || "99.000"}{" "}
                             </p>
                             
                         </div>
+                       
                     </div>
+                    <div className="border-t my-4"></div>
+                    <div className="space-y-2 bg-blue-50 p-4 rounded-lg border border-blue-200 relative">
+
+                        {/* Badge */}
+                        <span className="absolute -top-3 right-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow">
+                            BEST DEAL 🔥
+                        </span>
+
+                        <p className="text-sm font-semibold text-gray-700">
+                            Promo SUPER, Beli 2
+                        </p>
+
+                        <div className="flex items-center gap-4">
+                            <p className="text-gray-500 font-medium text-lg line-through">
+                                Rp {product?.price_promo_double?.toLocaleString("id-ID") || "258.000"}
+                            </p>
+                            <p className="text-blue-700 text-3xl font-bold">
+                                Rp {product?.final_price_promo_double?.toLocaleString("id-ID") || "179.000"}
+                            </p>
+                     
+                        </div>
+                        <p className="text-gray-500 text-sm">
+                            *Potongan diskon lebih banyak untuk pembelian 2 photobook
+                        </p>
+
+                      
+                    </div>
+
+
+
 
                     <div className="flex flex-col space-y-2 mt-4">
                         <ButtonOrderWA phoneNumber="6281585675295" message={`Halo, saya mau pesan photobook ${product.title}, Apakah masih ada promonya?`} />
