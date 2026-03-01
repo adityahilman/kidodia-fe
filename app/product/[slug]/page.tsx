@@ -3,13 +3,11 @@ import { products } from "@/lib/product";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Metadata } from "next";
-import Link from "next/link";
 import ButtonOrderWA from "@/components/ButtonOrderWA";
 import ProductGallery from "@/components/ProductGallery";
 import CustomerReview from "@/components/CustomerReview";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/footer";
-import OtherProduct from "@/components/OtherProduct";
 import ProductList from "@/components/ProductList";
 
 
